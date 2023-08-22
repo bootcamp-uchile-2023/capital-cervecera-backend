@@ -11,17 +11,22 @@ Este proyecto ha sido desarrollado utilizando el framework Nest.js, que combina 
 🚀 Instrucciones de Instalación
 
 1. Clona este repositorio en tu máquina local:
-   git clone https://github.com/[tu_usuario]/capital-cervecera-backend.git
+   git clone https://github.com/bootcamp-uchile-2023/capital-cervecera-backend.git
 
 2. Navega al directorio del proyecto:
    cd capital-cervecera-backend
 
-3. Instala las dependencias:
+3. Cambia a tu rama
+   git checkout tu-rama
+   git fetch
+   git merge develop
+
+5. Instala las dependencias:
    npm install
 
-4. Crea un archivo .env en la raíz del proyecto y configura las variables de entorno necesarias.
+6. Crea un archivo .env en la raíz del proyecto y configura las variables de entorno necesarias. (esto no aún)
 
-5. Ejecuta el proyecto:
+7. Ejecuta el proyecto:
    npm run start
 
 🧰 Tecnologías Utilizadas
