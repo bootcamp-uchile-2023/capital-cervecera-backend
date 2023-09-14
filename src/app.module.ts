@@ -9,7 +9,14 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { BuscadorModule } from './buscador/buscador.module';
 
 @Module({
-  imports: [TiendaModule, QuienesSomosModule, AyudaModule, CarritoDeCompraModule, UsuarioModule, BuscadorModule],
+  imports: [
+    TiendaModule,
+    QuienesSomosModule,
+    AyudaModule,
+    CarritoDeCompraModule,
+    UsuarioModule,
+    BuscadorModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

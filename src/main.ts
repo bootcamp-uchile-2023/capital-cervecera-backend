@@ -13,12 +13,54 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const modules = [
-    { title: 'Tienda', description: 'Api de Tienda', version: '1.0', tag: 'tienda', route: 'api/tienda', module: TiendaModule },
-    { title: 'Quiénes Somos', description: 'Api de Quiénes Somos', version: '1.0', tag: 'quienes-somos', route: 'api/quienes-somos', module: QuienesSomosModule },
-    { title: 'Ayuda', description: 'Api de Ayuda', version: '1.0', tag: 'ayuda', route: 'api/ayuda', module: AyudaModule },
-    { title: 'Carrito de Compra', description: 'Api de Carrito de Compra', version: '1.0', tag: 'carrito-de-compra', route: 'api/carrito-de-compra', module: CarritoDeCompraModule },
-    { title: 'Usuario', description: 'Api de Usuario', version: '1.0', tag: 'usuario', route: 'api/usuario', module: UsuarioModule },
-    { title: 'Buscador', description: 'Api de Buscador', version: '1.0', tag: 'buscador', route: 'api/buscador', module: BuscadorModule },
+    {
+      title: 'Tienda',
+      description: 'Api de Tienda',
+      version: '1.0',
+      tag: 'tienda',
+      route: 'api/tienda',
+      module: TiendaModule,
+    },
+    {
+      title: 'Quiénes Somos',
+      description: 'Api de Quiénes Somos',
+      version: '1.0',
+      tag: 'quienes-somos',
+      route: 'api/quienes-somos',
+      module: QuienesSomosModule,
+    },
+    {
+      title: 'Ayuda',
+      description: 'Api de Ayuda',
+      version: '1.0',
+      tag: 'ayuda',
+      route: 'api/ayuda',
+      module: AyudaModule,
+    },
+    {
+      title: 'Carrito de Compra',
+      description: 'Api de Carrito de Compra',
+      version: '1.0',
+      tag: 'carrito-de-compra',
+      route: 'api/carrito-de-compra',
+      module: CarritoDeCompraModule,
+    },
+    {
+      title: 'Usuario',
+      description: 'Api de Usuario',
+      version: '1.0',
+      tag: 'usuario',
+      route: 'api/usuario',
+      module: UsuarioModule,
+    },
+    {
+      title: 'Buscador',
+      description: 'Api de Buscador',
+      version: '1.0',
+      tag: 'buscador',
+      route: 'api/buscador',
+      module: BuscadorModule,
+    },
   ];
 
   for (const { title, description, version, tag, route, module } of modules) {
