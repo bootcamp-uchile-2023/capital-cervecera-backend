@@ -12,4 +12,19 @@ export class TiendaController {
   getAllProductos() {
     return this.tiendaService.getAllProductos();
   }
+
+  @Get('promociones')
+  getAllPromociones() {
+    return this.tiendaService.getAllPromociones();
+  }
+
+  @Get('merchandising')
+  getAllMerchandising() {
+    return this.tiendaService.getAllProductos();
+  }
+
+  @Get('suscripciones')
+  getAllSuscripciones() {
+    return this.tiendaService.getAllProductos();
+  }
 }

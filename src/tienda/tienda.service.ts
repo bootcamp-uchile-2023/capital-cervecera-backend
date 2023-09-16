@@ -19,4 +19,18 @@ export class TiendaService {
   getAllProductos() {
     return this.productos;
   }
+
+  getAllPromociones() {
+    return "getAllPromociones"
+  }
+
+  getAllMerchandising() {
+    return "getAllMerchandising"
+  }
+
+  getAllSuscripciones() {
+    return "getAllSuscripciones"
+  }
+
+
 }
