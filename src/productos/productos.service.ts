@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class TiendaService {
+export class ProductosService {
   private productos = [
     {
       nombre: 'Kunstman',
@@ -18,5 +18,8 @@ export class TiendaService {
   ];
   getAllProductos() {
     return this.productos;
+  }
+  getProductoByName(nombre: string) {
+    return this.productos.find((producto) => producto.nombre === nombre);
   }
 }
