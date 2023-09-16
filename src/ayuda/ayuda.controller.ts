@@ -1,10 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
+import { AyudaService } from './ayuda.service';
 
 @Controller('ayuda')
 export class AyudaController {
-
+  constructor(private readonly ayudaService: AyudaService) {}
   @Get()
   getAllAyuda() {
-    return ["aca estara el modulo de ayuda "]
+    return this.ayudaService;
   }
 }
