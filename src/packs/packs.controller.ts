@@ -8,7 +8,7 @@ export class PacksController {
   constructor(private readonly packsService: PacksService) {}
 
   @ApiBody({
-    description: 'Este producto debe poseer los siguientes atributos',
+    description: 'Este pack debe poseer los siguientes atributos',
     type: CreatePacksDto,
   })
   @ApiResponse({

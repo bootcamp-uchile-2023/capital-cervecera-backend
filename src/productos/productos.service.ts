@@ -1,25 +1,33 @@
 import { Injectable } from '@nestjs/common';
+import { data } from '../data/cervezas';
+import { Producto, ProductsFilter } from './interfaces/productos.interface';
 
 @Injectable()
 export class ProductosService {
-  private productos = [
-    {
-      nombre: 'Kunstman',
-      estrellas: 3,
-      precio_compra: 1000,
-      precio_venta: 1500,
-    },
-    {
-      nombre: 'Corona',
-      estrellas: 1,
-      precio_compra: 500,
-      precio_venta: 1000,
-    },
-  ];
-  getAllProductos() {
-    return this.productos;
+  private productos = data as Producto[];
+  getAllProductos(query: ProductsFilter) {
+    let filteredProduct = [...this.productos];
+    Object.keys(query).forEach((item) => {
+      if (item === 'precio_minimo') {
+        filteredProduct = filteredProduct.filter(
+          (prod) => prod.precio_venta >= +query[item],
+        );
+        return;
+      }
+      if (item === 'precio_maximo') {
+        filteredProduct = filteredProduct.filter(
+          (prod) => prod.precio_venta <= +query[item],
+        );
+        return;
+      }
+      filteredProduct = filteredProduct.filter(
+        (prod) => prod[item] == query[item],
+      );
+    });
+
+    return filteredProduct;
   }
-  getProductoByName(nombre: string) {
-    return this.productos.find((producto) => producto.nombre === nombre);
+  getProductoById(id: string) {
+    return this.productos.find((producto) => producto.id === id);
   }
 }

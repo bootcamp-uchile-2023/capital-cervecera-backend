@@ -10,9 +10,18 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { BuscadorModule } from './buscador/buscador.module';
 import { PacksModule } from './packs/packs.module';
 import { PromosModule } from './promos/promos.module';
+import { RecomendadosModule } from './recomendados/recomendados.module';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+
+      forbidNonWhitelisted: true,
+    }),
+  );
 
   const modules = [
     {
@@ -22,6 +31,14 @@ async function bootstrap() {
       tag: 'productos',
       route: 'api/productos',
       module: ProductosModule,
+    },
+    {
+      title: 'Recomendados',
+      description: 'Api de Recomendados',
+      version: '1.0',
+      tag: 'recomendados',
+      route: 'api/recomendados',
+      module: RecomendadosModule,
     },
     {
       title: 'Quiénes Somos',
@@ -88,6 +105,7 @@ async function bootstrap() {
       .setVersion(version)
       .addTag(tag)
       .build();
+
     const document = SwaggerModule.createDocument(app, config, {
       include: [module],
     });

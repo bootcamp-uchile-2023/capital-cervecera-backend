@@ -10,6 +10,7 @@ import { BuscadorModule } from './buscador/buscador.module';
 
 import { PacksModule } from './packs/packs.module';
 import { PromosModule } from './promos/promos.module';
+import { RecomendadosModule } from './recomendados/recomendados.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { PromosModule } from './promos/promos.module';
     BuscadorModule,
     PacksModule,
     PromosModule,
+    RecomendadosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
