@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CreatePacksDto {
   @ApiProperty()
   readonly packs: string;
-}
+}muralla 3d WALL PANEL TIPO MADERA
 ::/packs
 
 [
