@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { PackDto } from './dto/pack.dto';
-import { CreateProductosDto } from 'src/productos/dto/productos-create.dto';  
 
 @Injectable()
 export class PacksService {
