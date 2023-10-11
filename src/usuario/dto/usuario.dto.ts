@@ -19,9 +19,6 @@ export class UsuarioDto {
   @IsString({ message: 'el atributo debe ser un string ' })
   readonly password: string;
 
- 
-  @ApiProperty()
-  readonly id: UsuarioDto[];
 }
 
 export default UsuarioDto;

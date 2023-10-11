@@ -21,8 +21,6 @@ export class carritoDeCompraDto {
   @IsNumber({ message: 'el atributo debe ser un number ' })
   readonly total: number;
 
-  @ApiProperty()
-  readonly producto: carritoDeCompraDto[];
 }
 
 export default CarritoDeCompraDto;
