@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNumber } from 'class-validator';
+import { CreateProductosDto } from '../../productos/dto/productos-create.dto';
+import { CarritoDeCompraDto } from '../...CarritoCompraDto';
 
 export class CarritoCompraDto {
   
@@ -44,5 +46,5 @@ export class CarritoCompraDto {
   readonly detalle_venta: string;
  
   @ApiProperty()
-  readonly productos: CarritoCompraDto[];
+  readonly CreateProductosDto: CarritoCompraDto[];
 }
