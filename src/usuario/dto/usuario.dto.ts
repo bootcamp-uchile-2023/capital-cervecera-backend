@@ -19,6 +19,20 @@ export class UsuarioDto {
   @IsString({ message: 'el atributo debe ser un string ' })
   readonly password: string;
 
+  @ApiProperty()
+  @IsString({ message: 'El atributo debe ser un string' })
+  readonly direcciones: string; 
+
+  @ApiProperty()
+  @IsNumber({ message: 'El atributo debe ser un número' })
+  readonly descuentos: number; 
+
+  @ApiProperty()
+  @IsString({ message: 'El atributo debe ser un string' })
+  readonly contacto: string; 
+
+  @ApiProperty()
+  readonly fecha: Date;
 }
 
 export default UsuarioDto;
