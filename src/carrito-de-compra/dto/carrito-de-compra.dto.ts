@@ -2,17 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNumber } from 'class-validator';
 
 export class CarritoCompraDto {
-  @ApiProperty()
-  @IsNumber({}, { message: 'El atributo debe ser un number'})
-  readonly venta_id: number;
-
+  
   @ApiProperty()
   @IsNumber({}, { message: 'El atributo debe ser un number' })
-  readonly carrito: number;
-
-  @ApiProperty()
-  @IsString({ message: 'El atributo debe ser una cadena de string' })
-  readonly productos: string;
+  readonly carrito_id: number;
 
   @ApiProperty()
   @IsString({ message: 'El atributo debe ser una cadena de string' })
@@ -49,4 +42,7 @@ export class CarritoCompraDto {
   @ApiProperty()
   @IsString({ message: 'El atributo debe ser una cadena de string' })
   readonly detalle_venta: string;
+ 
+  @ApiProperty()
+  readonly productos: CarritoCompraDto[];
 }
