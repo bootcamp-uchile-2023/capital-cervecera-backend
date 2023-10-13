@@ -6,7 +6,7 @@ export class SuscripcionesController {
   constructor(private readonly suscripcionesService: SuscripcionesService) {}
 
   @Get()
-  getAllPacks() {
-    return this.suscripcionesService.findAllSuscripciones();
+  getAllSuscripciones() {
+    return "foo";//this.suscripcionesService.findAllSuscripciones();
   }
 }

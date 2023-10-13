@@ -11,8 +11,8 @@ import { BuscadorModule } from './buscador/buscador.module';
 import { PacksModule } from './packs/packs.module';
 import { PromosModule } from './promos/promos.module';
 import { RecomendadosModule } from './recomendados/recomendados.module';
+import { SuscripcionesModule } from './suscripciones/suscripciones.module';
 import { ValidationPipe } from '@nestjs/common';
-import { SuscripcionesModule } from './suscipciones/suscripciones.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
