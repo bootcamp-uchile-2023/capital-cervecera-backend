@@ -12,6 +12,7 @@ import { PacksModule } from './packs/packs.module';
 import { PromosModule } from './promos/promos.module';
 import { RecomendadosModule } from './recomendados/recomendados.module';
 import { ValidationPipe } from '@nestjs/common';
+import { SuscripcionesModule } from './suscipciones/suscripciones.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -95,6 +96,14 @@ async function bootstrap() {
       tag: 'promos',
       route: 'api/promos',
       module: PromosModule,
+    },
+    {
+      title: 'Suscripciones',
+      description: 'Api de suscripciones',
+      version: '1.0',
+      tag: 'suscripciones',
+      route: 'api/suscripciones',
+      module: SuscripcionesModule,
     },
   ];
 
