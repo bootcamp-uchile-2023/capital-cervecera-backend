@@ -6,19 +6,9 @@ import { ApiBody, ApiResponse } from '@nestjs/swagger';
 @Controller('recomendados')
 export class RecomendadosController {
   constructor(private readonly recomendadosService: RecomendadosService) {}
-  @ApiBody({
-    description:
-      'Este  producto recomendado debe poseer los siguientes atributos',
-    type: CreateRecomendadosDto,
-  })
-  @ApiResponse({
-    status: 201,
-    description: 'se registro con exito  ',
-    type: CreateRecomendadosDto,
-  })
   @Get()
   getAllRecomendados() {
-    return this.recomendadosService.findAllRecomendados();
+    return this.recomendadosService.getAllProductos();
   }
 
   @ApiResponse({ status: 403, description: 'No tiene permiso' })

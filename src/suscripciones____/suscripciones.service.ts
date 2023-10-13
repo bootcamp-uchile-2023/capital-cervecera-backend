@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { PackDto } from './dto/pack.dto';
+import { SuscripcionDto } from './dto/suscripciones.dto';
 
 @Injectable()
-export class PacksService {
+export class SuscripcionesService {
 
-  private readonly packs: PackDto[] = [
+  private readonly suscripciones: SuscripcionDto[] = [
     {
       "nombre": "Pack Ejemplo",
       "estrellas": 4.5,
       "precio": 199.99,
       "imagen_url": "https://ejemplo.com/imagen.jpg",
-      "casa_cervecera": "Cervecería Ejemplo",
       "productos": [
         {
           "casa_cervecera": "Cervecería Ejemplo 1",
@@ -36,7 +35,7 @@ export class PacksService {
     }
   ];
 
-  findAllPacks() {
-    return this.packs;
+  findAllSuscripciones() {
+    return this.suscripciones;
   }
 }

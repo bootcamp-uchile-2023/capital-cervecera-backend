@@ -1,31 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { data } from '../data/cervezas';
+import { Producto, ProductsFilter } from '../productos/interfaces/productos.interface';
 
 @Injectable()
 export class RecomendadosService {
-  private recomendados = [
-    {
-      nombre: 'Pilsen',
-      estrellas: 3,
-      precio_compra: 1000,
-    },
-    {
-      nombre: 'Corona',
-      estrellas: 4,
-      precio_compra: 2000,
-    },
-    {
-      nombre: 'Kunstman',
-      estrellas: 5,
-      precio_compra: 2500,
-    },
-  ];
-
-  findAllRecomendados() {
-    return this.recomendados;
+  private productos = data as Producto[];
+  getAllProductos() {
+        return this.productos;
   }
-  getRecomendadoByName(nombre: string) {
-    return this.recomendados.find(
-      (recomendados) => recomendados.nombre === nombre,
-    );
+
+  getProductoById(id: string) {
+    return this.productos.find((producto) => producto.id === id);
   }
 }
