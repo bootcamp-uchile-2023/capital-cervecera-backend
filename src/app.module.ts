@@ -9,8 +9,9 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { BuscadorModule } from './buscador/buscador.module';
 
 import { PacksModule } from './packs/packs.module';
-import { PromosModule } from './promos/promos.module';
+import { PromosModule } from './productos/promos/promos.module';
 import { RecomendadosModule } from './recomendados/recomendados.module';
+import { SuscripcionesModule } from './suscripciones/suscripciones.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { RecomendadosModule } from './recomendados/recomendados.module';
     PacksModule,
     PromosModule,
     RecomendadosModule,
+    SuscripcionesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
