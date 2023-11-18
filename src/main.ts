@@ -1,18 +1,21 @@
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 import { ProductosModule } from './productos/productos.module';
-import { QuienesSomosModule } from './quienes-somos/quienes-somos.module';
-import { AyudaModule } from './ayuda/ayuda.module';
-import { CarritoDeCompraModule } from './carrito-de-compra/carrito-de-compra.module';
+
 import { UsuarioModule } from './usuario/usuario.module';
-import { BuscadorModule } from './buscador/buscador.module';
-import { PacksModule } from './packs/packs.module';
-import { PromosModule } from './promos/promos.module';
-import { RecomendadosModule } from './recomendados/recomendados.module';
-import { SuscripcionesModule } from './suscripciones/suscripciones.module';
+
 import { ValidationPipe } from '@nestjs/common';
+import { CarritoModule } from './carrito/carrito.module';
+import { CasaCerveceraModule } from './casacervecera/casacervecera.module';
+import { ClienteModule } from './cliente/cliente.module';
+import { ClienteProductoModule } from './cliente_producto/cliente_producto.module';
+import { ComunaModule } from './comuna/comuna.module';
+import { ContactoModule } from './contacto/contacto.module';
+import { DireccionModule } from './direccion/direccion.module';
+import { PackModule } from './pack/pack.module';
+import { RegionModule } from './region/region.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -33,37 +36,14 @@ async function bootstrap() {
       route: 'api/productos',
       module: ProductosModule,
     },
-    {
-      title: 'Recomendados',
-      description: 'Api de Recomendados',
-      version: '1.0',
-      tag: 'recomendados',
-      route: 'api/recomendados',
-      module: RecomendadosModule,
-    },
-    {
-      title: 'Quiénes Somos',
-      description: 'Api de Quiénes Somos',
-      version: '1.0',
-      tag: 'quienes-somos',
-      route: 'api/quienes-somos',
-      module: QuienesSomosModule,
-    },
-    {
-      title: 'Ayuda',
-      description: 'Api de Ayuda',
-      version: '1.0',
-      tag: 'ayuda',
-      route: 'api/ayuda',
-      module: AyudaModule,
-    },
+
     {
       title: 'Carrito de Compra',
       description: 'Api de Carrito de Compra',
       version: '1.0',
-      tag: 'carrito-de-compra',
-      route: 'api/carrito-de-compra',
-      module: CarritoDeCompraModule,
+      tag: 'carrito',
+      route: 'api/carrito',
+      module: CarritoModule,
     },
     {
       title: 'Usuario',
@@ -74,36 +54,68 @@ async function bootstrap() {
       module: UsuarioModule,
     },
     {
-      title: 'Buscador',
-      description: 'Api de Buscador',
+      title: 'Casa Cervecera',
+      description: 'Api de Casa Cervecera',
       version: '1.0',
-      tag: 'buscador',
-      route: 'api/buscador',
-      module: BuscadorModule,
+      tag: 'casa',
+      route: 'api/casa',
+      module: CasaCerveceraModule,
     },
     {
-      title: 'Packs',
-      description: 'Api de packs de productos',
+      title: 'Casa Cervecera',
+      description: 'Api de Contacto',
       version: '1.0',
-      tag: 'packs',
-      route: 'api/packs',
-      module: PacksModule,
+      tag: 'contacto',
+      route: 'api/contacto',
+      module: ContactoModule,
     },
     {
-      title: 'Promociones',
-      description: 'Api de promociones',
+      title: 'Casa Cervecera',
+      description: 'Api de Cliente',
       version: '1.0',
-      tag: 'promos',
-      route: 'api/promos',
-      module: PromosModule,
+      tag: 'cliente',
+      route: 'api/cliente',
+      module: ClienteModule,
     },
     {
-      title: 'Suscripciones',
-      description: 'Api de suscripciones',
+      title: 'Casa Cervecera',
+      description: 'Api de Region',
       version: '1.0',
-      tag: 'suscripciones',
-      route: 'api/suscripciones',
-      module: SuscripcionesModule,
+      tag: 'region',
+      route: 'api/region',
+      module: RegionModule,
+    },
+    {
+      title: 'Casa Cervecera',
+      description: 'Api de Comuna',
+      version: '1.0',
+      tag: 'comuna',
+      route: 'api/comuna',
+      module: ComunaModule,
+    },
+    {
+      title: 'Casa Cervecera',
+      description: 'Api de Direccion',
+      version: '1.0',
+      tag: 'direccion',
+      route: 'api/direccion',
+      module: DireccionModule,
+    },
+    {
+      title: 'Casa Cervecera',
+      description: 'Api de Pack',
+      version: '1.0',
+      tag: 'pack',
+      route: 'api/pack',
+      module: PackModule,
+    },
+    {
+      title: 'Casa Cervecera',
+      description: 'Api de cliente_producto',
+      version: '1.0',
+      tag: 'cliente_producto',
+      route: 'api/cliente_producto',
+      module: ClienteProductoModule,
     },
   ];
 

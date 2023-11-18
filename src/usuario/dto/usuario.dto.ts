@@ -1,7 +1,16 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { IsInt, IsString } from 'class-validator';
+
 export class UsuarioDto {
-  readonly id: string;
-  readonly username: string;
-  readonly email: string;
-  readonly password: number;
-  //carrito
+  @ApiProperty()
+  @IsInt()
+  id: number;
+
+  @ApiProperty()
+  @IsString({ message: 'el username debe ser un string' })
+  username: string;
+
+  @ApiProperty()
+  @IsString({ message: 'el atributo debe ser un string' })
+  password: string;
 }
