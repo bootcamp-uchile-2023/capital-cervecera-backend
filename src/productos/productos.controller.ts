@@ -1,27 +1,33 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiParam,
+  ApiQuery,
+} from '@nestjs/swagger';
+import { CreateProductoDto } from './dto/producto-create.dto';
+import { UpdateProductoDto } from './dto/producto-update.dto';
+import { ProductoDto } from './dto/producto.dto';
 import { ProductosService } from './productos.service';
-import { CreateProductosDto } from './dto/productos-create.dto';
-import { ApiBody, ApiParam, ApiQuery } from '@nestjs/swagger';
-import { ProductsFilter } from './interfaces/productos.interface';
 
 @Controller('productos')
 export class ProductosController {
   constructor(private readonly productosService: ProductosService) {}
 
-  @ApiBody({
-    description: 'Este producto debe poseer los siguientes atributos',
-    type: CreateProductosDto,
-  })
-  // @ApiResponse({
-  //   status: 201,
-  //   description: 'se registro con exito  ',
-  //   type: CreateProductosDto,
-  // })
-  // @ApiResponse({ status: 403, description: 'No tiene permiso' })
-  @Post()
-  createProductos(@Body() createProductosDto: CreateProductosDto) {
-    return createProductosDto;
-  }
   @ApiQuery({
     name: 'precio_maximo',
     description:
@@ -44,7 +50,7 @@ export class ProductosController {
   @ApiQuery({
     name: 'grado_alcoholico',
     description: 'Identificador del producto que se desea buscar',
-    type: Number,
+    type: String,
     required: false,
   })
   @ApiQuery({
@@ -59,16 +65,85 @@ export class ProductosController {
     type: String,
     required: false,
   })
+  @ApiQuery({
+    name: 'is_recomendado',
+    description: 'Ingresar si el producto es recomendado',
+    type: Boolean,
+    required: false,
+  })
   @Get()
-  getAllProductos(@Query() query: ProductsFilter) {
-    return this.productosService.getAllProductos(query);
+  @ApiOkResponse({
+    description: 'Productos encontrados',
+    type: ProductoDto,
+    isArray: true,
+  })
+  async getAllProductos(@Query() query: any): Promise<ProductoDto[]> {
+    return await this.productosService.getAllProductos(query);
   }
+
   @ApiParam({
     name: 'id',
     description: 'identificador del producto que desea buscar',
   })
   @Get('productos/:id')
-  getProductoById(@Param('id') id: string) {
+  getProductoById(@Param('id') id: number) {
     return this.productosService.getProductoById(id);
+  }
+
+  @Post()
+  @ApiBody({
+    type: CreateProductoDto,
+    description: 'Datos del producto a crear',
+  })
+  @ApiBadRequestResponse({
+    description: 'Ya existe un producto con ese nombre',
+  })
+  @ApiCreatedResponse({
+    description: 'El producto se creó correctamente',
+    type: ProductoDto,
+  })
+  async create(
+    @Body() createProductoDto: CreateProductoDto,
+  ): Promise<ProductoDto> {
+    try {
+      const resultado = await this.productosService.create(createProductoDto);
+      return resultado;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
+  @Delete(':id')
+  @ApiOkResponse({ description: 'Producto eliminado', type: ProductoDto })
+  @ApiNotFoundResponse({ description: 'No se encontró el producto' })
+  async remove(@Param('id') id: number): Promise<ProductoDto> {
+    try {
+      const resultado = await this.productosService.remove(id);
+      return resultado;
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
+  }
+
+  @Patch(':id')
+  @ApiBody({
+    type: UpdateProductoDto,
+    description: 'Datos del producto a actualizar',
+  })
+  @ApiOkResponse({ description: 'Producto actualizado', type: ProductoDto })
+  @ApiNotFoundResponse({ description: 'No se encontró el producto' })
+  async update(
+    @Param('id') id: number,
+    @Body() updateProductoDto: UpdateProductoDto,
+  ): Promise<ProductoDto> {
+    try {
+      const resultado = await this.productosService.update(
+        id,
+        updateProductoDto,
+      );
+      return resultado;
+    } catch (error) {
+      throw new NotFoundException(error.message);
+    }
   }
 }
