@@ -8,7 +8,6 @@ import { UsuarioModule } from './usuario/usuario.module';
 
 import { ValidationPipe } from '@nestjs/common';
 import { json, urlencoded } from 'express';
-import helmet from 'helmet';
 import { CarritoModule } from './carrito/carrito.module';
 import { CasaCerveceraModule } from './casacervecera/casacervecera.module';
 import { ClienteModule } from './cliente/cliente.module';
@@ -28,7 +27,7 @@ async function bootstrap() {
   });
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ extended: true, limit: '50mb' }));
-  app.use(helmet());
+  // app.use(helmet());
 
   app.useGlobalPipes(
     new ValidationPipe({
