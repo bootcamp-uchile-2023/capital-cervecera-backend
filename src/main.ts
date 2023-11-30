@@ -7,6 +7,7 @@ import { ProductosModule } from './productos/productos.module';
 import { UsuarioModule } from './usuario/usuario.module';
 
 import { ValidationPipe } from '@nestjs/common';
+import { json, urlencoded } from 'express';
 import helmet from 'helmet';
 import { CarritoModule } from './carrito/carrito.module';
 import { CasaCerveceraModule } from './casacervecera/casacervecera.module';
@@ -20,8 +21,15 @@ import { RegionModule } from './region/region.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type, Accept',
+  });
+  app.use(json({ limit: '50mb' }));
+  app.use(urlencoded({ extended: true, limit: '50mb' }));
   app.use(helmet());
-  app.enableCors();
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
