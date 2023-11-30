@@ -1,5 +1,6 @@
 import { CreateClienteDto } from '../dto/cliente-create.dto';
 import { ClienteDto } from '../dto/cliente.dto';
+import { EstrellasCreateDto } from '../dto/estrellas-create.dto';
 import { Cliente } from '../entity/cliente.entity';
 
 export class ClienteMapper {
@@ -33,6 +34,16 @@ export class ClienteMapper {
     entidad.direccion_id = dto.direccion_id;
     entidad.usuario_id = dto.usuario_id;
     entidad.url_imagen = dto.url_imagen;
+
+    return entidad;
+  }
+
+  static toEstrellasEntity(dto: EstrellasCreateDto) {
+    const entidad = new EstrellasCreateDto();
+
+    entidad.cliente_id = dto.cliente_id;
+    entidad.producto_id = dto.producto_id;
+    entidad.estrellas = dto.estrellas;
 
     return entidad;
   }

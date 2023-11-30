@@ -8,11 +8,11 @@ export class CreateProductoDto {
   readonly casa_cervecera_id: number;
 
   @ApiProperty()
-  @IsString({ message: 'el atributo debe ser un string' })
+  @IsString()
   readonly tipo: string;
 
   @ApiProperty()
-  @IsString({ message: 'el atributo debe ser un string' })
+  @IsString()
   readonly grado_alcoholico: string;
 
   @ApiProperty()
@@ -20,7 +20,7 @@ export class CreateProductoDto {
   readonly amargor_ibu: string;
 
   @ApiProperty()
-  @IsString({ message: 'el atributo debe ser un string' })
+  @IsString()
   readonly nombre_producto: string;
 
   @ApiProperty()
@@ -36,6 +36,34 @@ export class CreateProductoDto {
   readonly is_recomendado: boolean;
 
   @ApiProperty()
+  @IsString() //prox base64
+  url_imagen_card: string;
+
+  @ApiProperty()
+  @IsString() // prox base64
+  url_imagen_detalle: string;
+
+  @ApiProperty()
+  @IsBoolean()
+  is_promo: boolean;
+
+  @ApiProperty()
+  @IsInt()
+  volumen_cc: number;
+
+  @ApiProperty()
   @IsString()
-  readonly url_imagen: string;
+  detalle: string;
+
+  @ApiProperty()
+  @IsInt()
+  stock: number;
+
+  @ApiProperty()
+  @IsInt()
+  precio_descuento: number;
+
+  @ApiProperty()
+  @IsString()
+  sku: string;
 }

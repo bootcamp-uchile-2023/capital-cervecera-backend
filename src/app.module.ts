@@ -26,7 +26,6 @@ import { Region } from './region/entity/region.entity';
 import { RegionModule } from './region/region.module';
 import { Usuario } from './usuario/entity/usuario.entity';
 import { UsuarioModule } from './usuario/usuario.module';
-
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -62,6 +61,7 @@ import { UsuarioModule } from './usuario/usuario.module';
     PackModule,
     ClienteProductoModule,
   ],
+
   controllers: [AppController],
   providers: [AppService],
 })

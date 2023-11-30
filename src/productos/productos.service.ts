@@ -20,6 +20,7 @@ export class ProductosService {
       relations: {
         casa_cervecera: true,
         packs: true,
+        cliente_productos: true,
       },
     });
 
@@ -64,14 +65,40 @@ export class ProductosService {
       relations: {
         casa_cervecera: true,
         packs: true,
+        cliente_productos: true,
       },
     });
-    console.log(resultado);
 
     if (!resultado) {
       throw new BadRequestException();
     }
     return ProductoMapper.toDto(resultado);
+  }
+
+  async getPromos() {
+    const resultado: Producto[] = await this.productoRepository.find({
+      where: {
+        is_promo: true,
+      },
+      relations: {
+        cliente_productos: true,
+      },
+    });
+
+    return ProductoMapper.toDtoList(resultado);
+  }
+
+  async getRecomendados() {
+    const resultado = await this.productoRepository.find({
+      where: {
+        is_recomendado: true,
+      },
+      relations: {
+        cliente_productos: true,
+      },
+    });
+
+    return ProductoMapper.toDtoList(resultado);
   }
 
   async create(createProductoDto: CreateProductoDto): Promise<ProductoDto> {
@@ -149,9 +176,6 @@ export class ProductosService {
     }
     if (updateProductoDto.casa_cervecera_id) {
       encontrado.casa_cervecera_id = updateProductoDto.casa_cervecera_id;
-    }
-    if (updateProductoDto.url_imagen) {
-      encontrado.url_imagen = updateProductoDto.url_imagen;
     }
 
     if (updateProductoDto.tipo) {

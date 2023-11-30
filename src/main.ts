@@ -7,6 +7,7 @@ import { ProductosModule } from './productos/productos.module';
 import { UsuarioModule } from './usuario/usuario.module';
 
 import { ValidationPipe } from '@nestjs/common';
+import helmet from 'helmet';
 import { CarritoModule } from './carrito/carrito.module';
 import { CasaCerveceraModule } from './casacervecera/casacervecera.module';
 import { ClienteModule } from './cliente/cliente.module';
@@ -19,6 +20,8 @@ import { RegionModule } from './region/region.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use(helmet());
+  app.enableCors();
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

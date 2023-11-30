@@ -3,6 +3,14 @@ import { IsBoolean, IsInt, IsOptional, IsString } from 'class-validator';
 
 export class UpdateProductoDto {
   @ApiProperty({
+    example: 'CER-IPA-500-001',
+    description: ' sku del producto',
+  })
+  @IsOptional()
+  @IsString()
+  sku: string;
+
+  @ApiProperty({
     example: 'Lager',
     description: ' El tipo de cerveza que desea actualizar',
   })
@@ -49,10 +57,51 @@ export class UpdateProductoDto {
   casa_cervecera_id: number;
 
   @ApiProperty({
-    example: 'https://www.ccu.cl/wp-content/uploads/2019/06/DORADA-12.png',
-    description: 'Url del producto',
+    example: '/images/cards/producto1.png', //prox base64
+    description: 'url de la imagen',
   })
-  @IsOptional()
   @IsString()
-  url_imagen: string;
+  url_imagen_card: string;
+
+  @ApiProperty({
+    example: '/images/detalle/producto1.png', //prox base64
+    description: 'url del detalle la imagen',
+  })
+  @IsString()
+  url_imagen_detalle: string;
+
+  @ApiProperty({
+    example: true,
+    description: 'booleano de si esta en promo o no',
+  })
+  @IsBoolean()
+  is_promo: boolean;
+
+  @ApiProperty({
+    example: 750,
+    description: 'cc del producto',
+  })
+  @IsInt()
+  volumen_cc: number;
+
+  @ApiProperty({
+    example: 'este producto es entero de weno',
+    description: 'detalle del producto',
+  })
+  @IsString()
+  detalle: string;
+
+  @ApiProperty({
+    example: 100,
+    description: 'numero del stock disponible',
+  })
+  @IsInt()
+  stock: number;
+
+  @ApiProperty({
+    example: 10,
+    description: 'descuento del producto ',
+  })
+  @IsInt()
+  precio_descuento: number;
 }
