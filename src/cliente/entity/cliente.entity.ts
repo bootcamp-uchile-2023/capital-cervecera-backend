@@ -1,3 +1,4 @@
+import { ClienteProducto } from 'src/cliente_producto/entity/cliente_producto.entity';
 import { Direccion } from 'src/direccion/entity/direccion.entity';
 import { Usuario } from 'src/usuario/entity/usuario.entity';
 import {
@@ -5,6 +6,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -45,4 +47,7 @@ export class Cliente {
   @ManyToOne(() => Direccion)
   @JoinColumn({ name: 'direccion_id' })
   direccion: Direccion;
+
+  @OneToMany(() => ClienteProducto, (u) => u.cliente)
+  cliente_productos: ClienteProducto[];
 }

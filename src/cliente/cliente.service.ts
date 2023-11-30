@@ -3,9 +3,11 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+import { ClienteProducto } from 'src/cliente_producto/entity/cliente_producto.entity';
 import { CreateClienteDto } from './dto/cliente-create.dto';
 import { UpdateClienteDto } from './dto/cliente-update.dto';
 import { ClienteDto } from './dto/cliente.dto';
+import { EstrellasCreateDto } from './dto/estrellas-create.dto';
 import { Cliente } from './entity/cliente.entity';
 import { ClienteMapper } from './mapper/cliente.mapper';
 
@@ -14,6 +16,8 @@ export class ClienteService {
   constructor(
     @InjectRepository(Cliente)
     private clienteRepository: Repository<Cliente>,
+    @InjectRepository(ClienteProducto)
+    private clienteProductoRepository: Repository<ClienteProducto>,
   ) {}
 
   async getAllClientes(): Promise<ClienteDto[]> {
@@ -120,5 +124,13 @@ export class ClienteService {
       },
     });
     return ClienteMapper.toDto(resultadoWithRelation);
+  }
+
+  async estrellasCreate(estrellasCreateDto: EstrellasCreateDto) {
+    const entidad: EstrellasCreateDto =
+      ClienteMapper.toEstrellasEntity(estrellasCreateDto);
+    const resultado: EstrellasCreateDto =
+      await this.clienteProductoRepository.save(entidad);
+    return ClienteMapper.toEstrellasEntity(resultado);
   }
 }

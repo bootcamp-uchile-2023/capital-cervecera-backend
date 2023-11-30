@@ -80,12 +80,21 @@ export class ProductosController {
   async getAllProductos(@Query() query: any): Promise<ProductoDto[]> {
     return await this.productosService.getAllProductos(query);
   }
+  @Get('promos')
+  async getPromos() {
+    return await this.productosService.getPromos();
+  }
+
+  @Get('recomendados')
+  async getRecomendados() {
+    return await this.productosService.getRecomendados();
+  }
 
   @ApiParam({
     name: 'id',
     description: 'identificador del producto que desea buscar',
   })
-  @Get('productos/:id')
+  @Get(':id')
   getProductoById(@Param('id') id: number) {
     return this.productosService.getProductoById(id);
   }

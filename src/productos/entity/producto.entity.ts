@@ -1,4 +1,5 @@
 import { Casa_cervecera } from 'src/casacervecera/entity/casacervecera.entity';
+import { ClienteProducto } from 'src/cliente_producto/entity/cliente_producto.entity';
 import { Pack } from 'src/pack/entity/pack.entity';
 import {
   Column,
@@ -7,6 +8,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -14,6 +16,9 @@ import {
 export class Producto {
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
+
+  @Column({ name: 'sku' })
+  sku: string;
 
   @Column({ name: 'tipo' })
   tipo: string;
@@ -39,8 +44,26 @@ export class Producto {
   @Column({ name: 'casa_cervecera_id' })
   casa_cervecera_id: number;
 
-  @Column({ name: 'url_imagen' })
-  url_imagen: string;
+  @Column({ name: 'url_imagen_detalle' })
+  url_imagen_detalle: string;
+
+  @Column({ name: 'url_imagen_card' })
+  url_imagen_card: string;
+
+  @Column({ name: 'is_promo' })
+  is_promo: boolean;
+
+  @Column({ name: 'volumen_cc' })
+  volumen_cc: number;
+
+  @Column({ name: 'detalle' })
+  detalle: string;
+
+  @Column({ name: 'stock' })
+  stock: number;
+
+  @Column({ name: 'precio_descuento' })
+  precio_descuento: number;
 
   @ManyToOne(() => Casa_cervecera)
   @JoinColumn({ name: 'casa_cervecera_id' })
@@ -53,4 +76,7 @@ export class Producto {
     inverseJoinColumn: { name: 'pack_id' },
   })
   packs: Pack[];
+
+  @OneToMany(() => ClienteProducto, (u) => u.producto)
+  cliente_productos: ClienteProducto[];
 }

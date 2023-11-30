@@ -20,6 +20,7 @@ import { ClienteService } from './cliente.service';
 import { CreateClienteDto } from './dto/cliente-create.dto';
 import { UpdateClienteDto } from './dto/cliente-update.dto';
 import { ClienteDto } from './dto/cliente.dto';
+import { EstrellasCreateDto } from './dto/estrellas-create.dto';
 
 @Controller('cliente')
 export class ClienteController {
@@ -92,6 +93,26 @@ export class ClienteController {
       return resultado;
     } catch (error) {
       throw new NotFoundException(error.message);
+    }
+  }
+
+  @Post('estrellas')
+  @ApiBody({
+    type: EstrellasCreateDto,
+    description: 'Datos del cliente a crear',
+  })
+  @ApiCreatedResponse({
+    description: 'El cliente se creó correctamente',
+    type: EstrellasCreateDto,
+  })
+  async estrellasCreate(@Body() estrellasCreateDto: EstrellasCreateDto) {
+    try {
+      const resultado = await this.clienteService.estrellasCreate(
+        estrellasCreateDto,
+      );
+      return resultado;
+    } catch (error) {
+      throw new BadRequestException(error.message);
     }
   }
 }
