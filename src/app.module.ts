@@ -9,6 +9,8 @@ import { Carrito } from './carrito/entity/carrito.entity';
 import { CasaCerveceraModule } from './casacervecera/casacervecera.module';
 import { Casa_cervecera } from './casacervecera/entity/casacervecera.entity';
 
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 import { ClienteModule } from './cliente/cliente.module';
 import { Cliente } from './cliente/entity/cliente.entity';
 import { ClienteProductoModule } from './cliente_producto/cliente_producto.module';
@@ -28,6 +30,14 @@ import { Usuario } from './usuario/entity/usuario.entity';
 import { UsuarioModule } from './usuario/usuario.module';
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'assets'),
+      serveStaticOptions: {
+        redirect: false,
+        index: false,
+      },
+    }),
+
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',

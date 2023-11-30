@@ -37,11 +37,11 @@ export class CreateProductoDto {
 
   @ApiProperty()
   @IsString() //prox base64
-  url_imagen_card: string;
+  image_card_base64: string;
 
   @ApiProperty()
   @IsString() // prox base64
-  url_imagen_detalle: string;
+  image_detalle_base64: string;
 
   @ApiProperty()
   @IsBoolean()

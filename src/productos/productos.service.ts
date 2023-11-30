@@ -111,16 +111,18 @@ export class ProductosService {
     if (existe) {
       throw Error('Ya existe un producto con ese nombre');
     }
-    const entidad: Producto = ProductoMapper.toEntity(createProductoDto);
+
+    const entidad: Producto = await ProductoMapper.toEntity(createProductoDto);
 
     const resultado: Producto = await this.productoRepository.save(entidad);
-    console.log(resultado);
+
     const resultadoWithRelation = await this.productoRepository.findOne({
       where: {
         id: resultado.id,
       },
       relations: {
         casa_cervecera: true,
+        cliente_productos: true,
       },
     });
 
