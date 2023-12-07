@@ -3,11 +3,11 @@ import { IsBoolean, IsInt, IsString } from 'class-validator';
 //import { Tipo } from '../entity/producto.entity';
 
 export class CreateProductoDto {
-  @ApiProperty()
+  @ApiProperty({ example: 1 })
   @IsInt({ message: 'el atributo debe ser un number ' })
   readonly casa_cervecera_id: number;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'Lager' }) // por los producto que tengo en enum por ahora
   @IsString()
   readonly tipo: string;
 
@@ -35,12 +35,12 @@ export class CreateProductoDto {
   @IsBoolean()
   readonly is_recomendado: boolean;
 
-  @ApiProperty()
-  @IsString() //prox base64
+  @ApiProperty({ example: '' })
+  @IsString()
   image_card_base64: string;
 
-  @ApiProperty()
-  @IsString() // prox base64
+  @ApiProperty({ example: '' })
+  @IsString()
   image_detalle_base64: string;
 
   @ApiProperty()

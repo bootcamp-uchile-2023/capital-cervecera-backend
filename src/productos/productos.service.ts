@@ -133,6 +133,9 @@ export class ProductosService {
       where: {
         id: id,
       },
+      relations: {
+        cliente_productos: true,
+      },
     });
     if (!encontrado) {
       throw Error('No se encontró el producto');

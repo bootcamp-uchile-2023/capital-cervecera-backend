@@ -39,12 +39,12 @@ export class UsuarioController {
     name: 'id',
     description: 'identificador del usuario que desea buscar',
   })
-  @Get('usuario/:id')
+  @Get(':id')
   getUsuarioById(@Param('id') id: number) {
     return this.usuarioService.getUsuarioById(id);
   }
 
-  @Post()
+  @Post('register')
   @ApiBody({
     type: CreateUsuarioDto,
     description: 'Datos del usuario a crear',
@@ -53,11 +53,27 @@ export class UsuarioController {
     description: 'El usuario se creó correctamente',
     type: UsuarioDto,
   })
-  async create(
-    @Body() createUsuarioDto: CreateUsuarioDto,
-  ): Promise<UsuarioDto> {
+  async create(@Body() createUsuarioDto: CreateUsuarioDto) {
     try {
       const resultado = await this.usuarioService.create(createUsuarioDto);
+      return resultado;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
+  @Post('login')
+  @ApiBody({
+    type: UsuarioDto,
+    description: 'Datos del usuario a logear',
+  })
+  @ApiCreatedResponse({
+    description: 'El usuario se logeo correctamente',
+    type: UsuarioDto,
+  })
+  async login(@Body() usuarioDto: UsuarioDto) {
+    try {
+      const resultado = await this.usuarioService.login(usuarioDto);
       return resultado;
     } catch (error) {
       throw new BadRequestException(error.message);

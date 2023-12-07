@@ -5,7 +5,7 @@ import { Usuario } from '../entity/usuario.entity';
 export class UsuarioMapper {
   static toDto(entidad: Usuario): UsuarioDto {
     const dto = new UsuarioDto();
-    dto.id = entidad.id;
+
     dto.password = entidad.password;
     dto.username = entidad.username;
 
