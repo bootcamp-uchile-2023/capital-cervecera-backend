@@ -9,16 +9,21 @@ import {
   Patch,
   Post,
   Query,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiBody,
   ApiCreatedResponse,
+  ApiHeader,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiParam,
   ApiQuery,
 } from '@nestjs/swagger';
+import { Request } from 'express';
+import { JWTGuard } from 'src/guards/jwt.guard';
 import { CreateProductoDto } from './dto/producto-create.dto';
 import { UpdateProductoDto } from './dto/producto-update.dto';
 import { ProductoDto } from './dto/producto.dto';
@@ -99,6 +104,12 @@ export class ProductosController {
     return this.productosService.getProductoById(id);
   }
 
+  @UseGuards(JWTGuard)
+  @ApiHeader({
+    name: 'Autorizacion',
+    description: 'Token de autorizacion',
+    required: true,
+  })
   @Post()
   @ApiBody({
     type: CreateProductoDto,
@@ -113,7 +124,9 @@ export class ProductosController {
   })
   async create(
     @Body() createProductoDto: CreateProductoDto,
+    @Req() req: Request,
   ): Promise<ProductoDto> {
+    console.log(req['CURRENT_USER']);
     try {
       const resultado = await this.productosService.create(createProductoDto);
       return resultado;

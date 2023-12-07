@@ -76,7 +76,8 @@ export class ProductoMapper {
   static toDtoforList(entidad: Producto): ProductoDto {
     const dto = new ProductoDto();
     const estrellas = this.calcEstrellas(entidad.cliente_productos);
-
+    dto.id = entidad.id;
+    dto.sku = entidad.sku;
     dto.precio_venta = entidad.precio_venta;
     dto.precio_descuento = entidad.precio_descuento;
     dto.estrellas = +estrellas;
