@@ -7,7 +7,7 @@ export class CasaCerveceraMapper {
     const dto = new CasaCerveceraDto();
     dto.id = entidad.id;
     dto.nombre = entidad.nombre;
-    dto.resenia = entidad.resenia;
+
     return dto;
   }
 
@@ -18,7 +18,7 @@ export class CasaCerveceraMapper {
   static toEntity(dto: CreateCasaCerveceraDto): Casa_cervecera {
     const entidad = new Casa_cervecera();
     entidad.nombre = dto.nombre;
-    entidad.resenia = dto.resenia;
+
     return entidad;
   }
 }

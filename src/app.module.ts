@@ -9,8 +9,11 @@ import { Carrito } from './carrito/entity/carrito.entity';
 import { CasaCerveceraModule } from './casacervecera/casacervecera.module';
 import { Casa_cervecera } from './casacervecera/entity/casacervecera.entity';
 
+import { APP_GUARD } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { AbilitiesGuard } from './ability/abilities.guard';
+import { AbilityModule } from './ability/ability.module';
 import { ClienteModule } from './cliente/cliente.module';
 import { Cliente } from './cliente/entity/cliente.entity';
 import { ClienteProductoModule } from './cliente_producto/cliente_producto.module';
@@ -21,6 +24,7 @@ import { ContactoModule } from './contacto/contacto.module';
 import { Contacto } from './contacto/entity/contacto.entity';
 import { DireccionModule } from './direccion/direccion.module';
 import { Direccion } from './direccion/entity/direccion.entity';
+import { JWTGuard } from './guards/jwt.guard';
 import { Pack } from './pack/entity/pack.entity';
 import { PackModule } from './pack/pack.module';
 import { Producto } from './productos/entity/producto.entity';
@@ -70,9 +74,20 @@ import { UsuarioModule } from './usuario/usuario.module';
     ComunaModule,
     PackModule,
     ClienteProductoModule,
+    AbilityModule,
   ],
 
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JWTGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AbilitiesGuard,
+    },
+  ],
 })
 export class AppModule {}

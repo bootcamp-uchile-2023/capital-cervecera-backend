@@ -5,8 +5,4 @@ export class CreateCasaCerveceraDto {
   @ApiProperty()
   @IsString({ message: 'el atributo debe ser un string ' })
   readonly nombre: string;
-
-  @ApiProperty()
-  @IsString({ message: 'el atributo debe ser un string' })
-  readonly resenia: string;
 }

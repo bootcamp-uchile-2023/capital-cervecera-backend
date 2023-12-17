@@ -35,9 +35,6 @@ export class Producto {
   @Column({ name: 'precio_venta' })
   precio_venta: number;
 
-  @Column({ name: 'precio_compra' })
-  precio_compra: number;
-
   @Column({ name: 'is_recomendado' })
   is_recomendado: boolean;
 

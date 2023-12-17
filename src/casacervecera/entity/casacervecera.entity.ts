@@ -7,9 +7,4 @@ export class Casa_cervecera {
 
   @Column({ name: 'nombre' })
   nombre: string;
-
-  @Column({
-    name: 'resenia',
-  })
-  resenia: string;
 }

@@ -9,8 +9,4 @@ export class CasaCerveceraDto {
   @ApiProperty()
   @IsString({ message: 'el atributo debe ser un string' })
   nombre: string;
-
-  @ApiProperty()
-  @IsString({ message: 'el atributo debe ser un string' })
-  resenia: string;
 }

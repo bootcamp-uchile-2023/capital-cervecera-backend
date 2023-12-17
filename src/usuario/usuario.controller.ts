@@ -16,14 +16,23 @@ import {
   ApiOkResponse,
   ApiParam,
 } from '@nestjs/swagger';
+
+import { CheckAbilities } from 'src/ability/abilities.decorator';
+import { AbilityFactory, Action } from 'src/ability/ability.factory';
+import { Public } from 'src/guards/public.decorator';
 import { CreateUsuarioDto } from './dto/usuario-create.dto';
+import { UsuarioLoginDto } from './dto/usuario-login.dto';
 import { UpdateUsuarioDto } from './dto/usuario-update.dto';
 import { UsuarioDto } from './dto/usuario.dto';
+import { Usuario } from './entity/usuario.entity';
 import { UsuarioService } from './usuario.service';
 
 @Controller('usuario')
 export class UsuarioController {
-  constructor(private readonly usuarioService: UsuarioService) {}
+  constructor(
+    private readonly usuarioService: UsuarioService,
+    private abilityFactory: AbilityFactory,
+  ) {}
 
   @Get()
   @ApiOkResponse({
@@ -44,6 +53,7 @@ export class UsuarioController {
     return this.usuarioService.getUsuarioById(id);
   }
 
+  @Public()
   @Post('register')
   @ApiBody({
     type: CreateUsuarioDto,
@@ -55,6 +65,10 @@ export class UsuarioController {
   })
   async create(@Body() createUsuarioDto: CreateUsuarioDto) {
     try {
+      return this.usuarioService.create(createUsuarioDto);
+    } catch (error) {}
+
+    try {
       const resultado = await this.usuarioService.create(createUsuarioDto);
       return resultado;
     } catch (error) {
@@ -63,17 +77,18 @@ export class UsuarioController {
   }
 
   @Post('login')
+  @Public()
   @ApiBody({
-    type: UsuarioDto,
+    type: UsuarioLoginDto,
     description: 'Datos del usuario a logear',
   })
   @ApiCreatedResponse({
     description: 'El usuario se logeo correctamente',
-    type: UsuarioDto,
+    type: UsuarioLoginDto,
   })
-  async login(@Body() usuarioDto: UsuarioDto) {
+  async login(@Body() usuarioLoginDto: UsuarioLoginDto) {
     try {
-      const resultado = await this.usuarioService.login(usuarioDto);
+      const resultado = await this.usuarioService.login(usuarioLoginDto);
       return resultado;
     } catch (error) {
       throw new BadRequestException(error.message);
@@ -81,6 +96,7 @@ export class UsuarioController {
   }
 
   @Delete(':id')
+  @CheckAbilities({ action: Action.Delete, subject: Usuario })
   @ApiOkResponse({ description: 'Usuario eliminado', type: UsuarioDto })
   @ApiNotFoundResponse({ description: 'No se encontró el usuario' })
   async remove(@Param('id') id: number): Promise<UsuarioDto> {
