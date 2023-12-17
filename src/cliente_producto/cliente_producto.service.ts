@@ -30,7 +30,7 @@ export class ClienteProductoService {
     );
     const resultado: ClienteProducto =
       await this.cliente_productoRepository.save(entidad);
-    console.log(resultado);
+
     return ClienteProductoMapper.toDto(resultado);
   }
 }

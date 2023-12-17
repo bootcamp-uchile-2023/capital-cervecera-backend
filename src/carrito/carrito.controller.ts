@@ -8,14 +8,18 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBody,
   ApiCreatedResponse,
+  ApiHeader,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiParam,
 } from '@nestjs/swagger';
+import { JWTGuard } from 'src/guards/jwt.guard';
+import { Public } from 'src/guards/public.decorator';
 import { CarritoService } from './carrito.service';
 import { CreateCarritoDto } from './dto/carrito-create.dto';
 import { UpdateCarritoDto } from './dto/carrito-update.dto';
@@ -25,6 +29,7 @@ import { CarritoDto } from './dto/carrito.dto';
 export class CarritoController {
   constructor(private readonly carritoService: CarritoService) {}
 
+  @Public()
   @Get()
   @ApiOkResponse({
     description: 'carritos encontrados',
@@ -39,11 +44,12 @@ export class CarritoController {
     name: 'id',
     description: 'identificador del carrito que desea buscar',
   })
-  @Get('carrito/:id')
+  @Public()
+  @Get('{carrito_id}')
   getCarritoById(@Param('id') id: number) {
     return this.carritoService.getCarritoById(id);
   }
-
+  @Public()
   @Post()
   @ApiBody({
     type: CreateCarritoDto,
@@ -76,6 +82,12 @@ export class CarritoController {
     }
   }
 
+  @ApiHeader({
+    name: 'Autorizacion',
+    description: 'Token de autorizacion',
+    required: true,
+  })
+  @UseGuards(JWTGuard)
   @Patch(':id')
   @ApiBody({
     type: UpdateCarritoDto,
@@ -93,5 +105,10 @@ export class CarritoController {
     } catch (error) {
       throw new NotFoundException(error.message);
     }
+  }
+
+  @Get('contacto')
+  getCarritoClienteById(@Param('id') id: number) {
+    return this.carritoService.getCarritoClienteById(id);
   }
 }

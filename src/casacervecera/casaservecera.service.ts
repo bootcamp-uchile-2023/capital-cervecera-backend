@@ -53,7 +53,7 @@ export class CasaCerveceraService {
     const resultado: Casa_cervecera = await this.casacerveceraRepository.save(
       entidad,
     );
-    console.log(resultado);
+
     return CasaCerveceraMapper.toDto(resultado);
   }
   async remove(id: number): Promise<CasaCerveceraDto> {
@@ -86,9 +86,6 @@ export class CasaCerveceraService {
 
     if (updateCasaCerveceraDto.nombre) {
       encontrado.nombre = updateCasaCerveceraDto.nombre;
-    }
-    if (updateCasaCerveceraDto.resenia) {
-      encontrado.resenia = updateCasaCerveceraDto.resenia;
     }
 
     const resultado: Casa_cervecera = await this.casacerveceraRepository.save(

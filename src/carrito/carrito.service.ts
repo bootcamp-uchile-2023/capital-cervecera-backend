@@ -4,6 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CarritoMapper } from './mapper/carrito.mapper';
 
+import { ClienteDto } from 'src/cliente/dto/cliente.dto';
+import { ClienteMapper } from 'src/cliente/mapper/cliente.mapper';
 import { CreateCarritoDto } from './dto/carrito-create.dto';
 import { UpdateCarritoDto } from './dto/carrito-update.dto';
 import { CarritoDto } from './dto/carrito.dto';
@@ -37,7 +39,7 @@ export class CarritoService {
   async create(createCarritoDto: CreateCarritoDto): Promise<CarritoDto> {
     const entidad: Carrito = CarritoMapper.toEntity(createCarritoDto);
     const resultado: Carrito = await this.carritoRepository.save(entidad);
-    console.log(resultado);
+
     return CarritoMapper.toDto(resultado);
   }
   async remove(id: number): Promise<CarritoDto> {
@@ -78,5 +80,21 @@ export class CarritoService {
 
     const resultado: Carrito = await this.carritoRepository.save(encontrado);
     return CarritoMapper.toDto(resultado);
+  }
+
+  async getCarritoClienteById(id: number): Promise<ClienteDto> {
+    const resultado: Carrito = await this.carritoRepository.findOne({
+      where: {
+        id: id,
+      },
+      relations: {
+        cliente: true,
+      },
+    });
+    if (!resultado) {
+      throw new BadRequestException();
+    }
+
+    return ClienteMapper.toDto(resultado.cliente);
   }
 }

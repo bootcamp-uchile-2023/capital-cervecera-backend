@@ -9,12 +9,4 @@ export class UpdateCasaCerveceraDto {
   @IsOptional()
   @IsString()
   nombre: string;
-
-  @ApiProperty({
-    example: 'Buen producto',
-    description: 'resenia de la casa cervecera que desea actualizar ',
-  })
-  @IsOptional()
-  @IsString()
-  resenia: string;
 }

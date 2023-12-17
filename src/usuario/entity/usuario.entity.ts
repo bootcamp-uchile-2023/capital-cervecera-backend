@@ -10,4 +10,10 @@ export class Usuario {
 
   @Column({ name: 'password' })
   password: string;
+
+  @Column({ name: 'isAdmin' })
+  isAdmin: boolean;
+
+  @Column({ name: 'email' })
+  email: string;
 }

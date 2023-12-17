@@ -1,7 +1,10 @@
+import { Cliente } from 'src/cliente/entity/cliente.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -24,4 +27,8 @@ export class Carrito {
 
   @CreateDateColumn({ name: 'created_at' })
   created_at: Date;
+
+  @ManyToOne(() => Cliente)
+  @JoinColumn({ name: 'cliente_id' })
+  cliente: Cliente;
 }

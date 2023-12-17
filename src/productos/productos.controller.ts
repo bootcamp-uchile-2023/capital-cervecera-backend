@@ -9,8 +9,6 @@ import {
   Patch,
   Post,
   Query,
-  Req,
-  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
@@ -22,8 +20,7 @@ import {
   ApiParam,
   ApiQuery,
 } from '@nestjs/swagger';
-import { Request } from 'express';
-import { JWTGuard } from 'src/guards/jwt.guard';
+import { Public } from 'src/guards/public.decorator';
 import { CreateProductoDto } from './dto/producto-create.dto';
 import { UpdateProductoDto } from './dto/producto-update.dto';
 import { ProductoDto } from './dto/producto.dto';
@@ -71,11 +68,18 @@ export class ProductosController {
     required: false,
   })
   @ApiQuery({
+    name: 'is_promo',
+    description: 'Ingresar si el producto esta en promo',
+    type: Boolean,
+    required: false,
+  })
+  @ApiQuery({
     name: 'is_recomendado',
     description: 'Ingresar si el producto es recomendado',
     type: Boolean,
     required: false,
   })
+  @Public()
   @Get()
   @ApiOkResponse({
     description: 'Productos encontrados',
@@ -85,11 +89,13 @@ export class ProductosController {
   async getAllProductos(@Query() query: any): Promise<ProductoDto[]> {
     return await this.productosService.getAllProductos(query);
   }
+  @Public()
   @Get('promos')
   async getPromos() {
     return await this.productosService.getPromos();
   }
 
+  @Public()
   @Get('recomendados')
   async getRecomendados() {
     return await this.productosService.getRecomendados();
@@ -99,12 +105,12 @@ export class ProductosController {
     name: 'id',
     description: 'identificador del producto que desea buscar',
   })
+  @Public()
   @Get(':id')
   getProductoById(@Param('id') id: number) {
     return this.productosService.getProductoById(id);
   }
 
-  @UseGuards(JWTGuard)
   @ApiHeader({
     name: 'Autorizacion',
     description: 'Token de autorizacion',
@@ -124,9 +130,7 @@ export class ProductosController {
   })
   async create(
     @Body() createProductoDto: CreateProductoDto,
-    @Req() req: Request,
   ): Promise<ProductoDto> {
-    console.log(req['CURRENT_USER']);
     try {
       const resultado = await this.productosService.create(createProductoDto);
       return resultado;
@@ -134,7 +138,6 @@ export class ProductosController {
       throw new BadRequestException(error.message);
     }
   }
-
   @Delete(':id')
   @ApiOkResponse({ description: 'Producto eliminado', type: ProductoDto })
   @ApiNotFoundResponse({ description: 'No se encontró el producto' })

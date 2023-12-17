@@ -53,7 +53,7 @@ export class ProductoMapper {
     entidad.grado_alcoholico = dto.grado_alcoholico;
     entidad.amargor_ibu = dto.amargor_ibu;
     entidad.is_recomendado = dto.is_recomendado;
-    entidad.precio_compra = dto.precio_compra;
+
     entidad.precio_venta = dto.precio_venta;
 
     entidad.volumen_cc = dto.volumen_cc;
@@ -87,6 +87,8 @@ export class ProductoMapper {
     dto.stock = entidad.stock;
     dto.volumen_cc = entidad.volumen_cc;
     dto.url_imagen_card = entidad.url_imagen_card;
+    dto.is_recomendado = entidad.is_recomendado;
+    dto.is_promo = entidad.is_promo;
 
     return dto;
   }

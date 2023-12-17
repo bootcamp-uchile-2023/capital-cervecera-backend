@@ -7,6 +7,7 @@ import { UsuarioMapper } from './mapper/usuario.mapper';
 import { JwtService } from '@nestjs/jwt';
 import * as Crypto from 'crypto';
 import { CreateUsuarioDto } from './dto/usuario-create.dto';
+import { UsuarioLoginDto } from './dto/usuario-login.dto';
 import { UpdateUsuarioDto } from './dto/usuario-update.dto';
 import { UsuarioDto } from './dto/usuario.dto';
 import { Usuario } from './entity/usuario.entity';
@@ -66,12 +67,13 @@ export class UsuarioService {
     return UsuarioMapper.toDto(resultado);
   }
 
-  async login(usuarioDto: UsuarioDto) {
+  async login(usuarioLoginDto: UsuarioLoginDto) {
     const encontrarUsuario: Usuario = await this.usuarioRepository.findOne({
       where: {
-        username: usuarioDto.username,
+        username: usuarioLoginDto.username,
       },
     });
+
     if (!encontrarUsuario) {
       throw Error('TAS TISTE');
     }
@@ -86,8 +88,14 @@ export class UsuarioService {
       decipher.final(),
     ]);
     const pswOriginal = decrypted.toString();
-    if (usuarioDto.password === pswOriginal) {
-      const payload = { username: usuarioDto.username };
+
+    if (usuarioLoginDto.password === pswOriginal) {
+      const payload = {
+        id: encontrarUsuario.id,
+        username: usuarioLoginDto.username,
+        isAdmin: encontrarUsuario.isAdmin,
+        email: encontrarUsuario.email,
+      };
       return {
         access_token: await this.jwtService.signAsync(payload),
       };

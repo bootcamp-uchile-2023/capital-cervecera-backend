@@ -35,6 +35,7 @@ export class ProductosService {
           }
           return prod.is_recomendado == true;
         });
+
         return;
       }
       if (item === 'precio_minimo') {
@@ -49,9 +50,17 @@ export class ProductosService {
         );
         return;
       }
-      filteredProduct = filteredProduct.filter((prod) => {
-        return prod[item] == query[item];
-      });
+      if (item === 'is_promo') {
+        filteredProduct = filteredProduct.filter((prod) => {
+          if (query.is_promo === 'false') {
+            return prod.is_promo == false;
+          }
+          return prod.is_promo == true;
+        });
+        filteredProduct = filteredProduct.filter((prod) => {
+          return prod[item] == query[item];
+        });
+      }
     });
 
     return filteredProduct;
@@ -170,9 +179,7 @@ export class ProductosService {
     if (updateProductoDto.nombre_producto) {
       encontrado.nombre_producto = updateProductoDto.nombre_producto;
     }
-    if (updateProductoDto.precio_compra) {
-      encontrado.precio_compra = updateProductoDto.precio_compra;
-    }
+
     if (updateProductoDto.precio_venta) {
       encontrado.precio_venta = updateProductoDto.precio_venta;
     }
@@ -186,7 +193,6 @@ export class ProductosService {
     if (updateProductoDto.tipo) {
       encontrado.tipo = updateProductoDto.tipo;
     }
-    console.log(encontrado);
 
     const resultado: Producto = await this.productoRepository.save(encontrado);
     const resultadoWithRelation = await this.productoRepository.findOne({

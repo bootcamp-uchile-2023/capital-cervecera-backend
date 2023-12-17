@@ -21,11 +21,13 @@ import { CreateClienteDto } from './dto/cliente-create.dto';
 import { UpdateClienteDto } from './dto/cliente-update.dto';
 import { ClienteDto } from './dto/cliente.dto';
 import { EstrellasCreateDto } from './dto/estrellas-create.dto';
+import { Public } from 'src/guards/public.decorator';
 
 @Controller('cliente')
 export class ClienteController {
   constructor(private readonly clienteService: ClienteService) {}
 
+  @Public()
   @Get()
   @ApiOkResponse({
     description: 'clientes encontrados',

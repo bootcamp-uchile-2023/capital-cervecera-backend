@@ -52,7 +52,7 @@ export class ContactoService {
         cliente: true,
       },
     });
-    console.log(resultadoWithRelation);
+
     return ContactoMapper.toDto(resultadoWithRelation);
   }
   async remove(id: number): Promise<ContactoDto> {

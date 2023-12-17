@@ -16,6 +16,7 @@ import {
   ApiOkResponse,
   ApiParam,
 } from '@nestjs/swagger';
+import { Public } from 'src/guards/public.decorator';
 import { ContactoService } from './contacto.service';
 import { CreateContactoDto } from './dto/contacto-create.dto';
 import { UpdateContactoDto } from './dto/contacto-update.dto';
@@ -25,6 +26,7 @@ import { ContactoDto } from './dto/contacto.dto';
 export class ContactoController {
   constructor(private readonly contactoService: ContactoService) {}
 
+  @Public()
   @Get()
   @ApiOkResponse({
     description: 'contactos encontrados',
