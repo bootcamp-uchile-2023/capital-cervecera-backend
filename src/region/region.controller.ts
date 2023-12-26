@@ -16,6 +16,7 @@ import {
   ApiOkResponse,
   ApiParam,
 } from '@nestjs/swagger';
+import { Public } from 'src/guards/public.decorator';
 import { CreateRegionDto } from './dto/region-create.dto';
 import { UpdateRegionDto } from './dto/region-update.dto';
 import { RegionDto } from './dto/region.dto';
@@ -25,6 +26,7 @@ import { RegionService } from './region.service';
 export class RegionController {
   constructor(private readonly regionService: RegionService) {}
 
+  @Public()
   @Get()
   @ApiOkResponse({
     description: 'regiones encontrados',

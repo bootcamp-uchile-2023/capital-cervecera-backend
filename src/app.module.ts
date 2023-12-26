@@ -14,14 +14,13 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AbilitiesGuard } from './ability/abilities.guard';
 import { AbilityModule } from './ability/ability.module';
-import { ClienteModule } from './cliente/cliente.module';
-import { Cliente } from './cliente/entity/cliente.entity';
-import { ClienteProductoModule } from './cliente_producto/cliente_producto.module';
-import { ClienteProducto } from './cliente_producto/entity/cliente_producto.entity';
+import { Venta } from './carrito/entity/venta.entity';
 import { ComunaModule } from './comuna/comuna.module';
 import { Comuna } from './comuna/entity/comuna.entity';
 import { ContactoModule } from './contacto/contacto.module';
 import { Contacto } from './contacto/entity/contacto.entity';
+import { ContactoProductoModule } from './contacto_producto/contacto_producto.module';
+import { ContactoProducto } from './contacto_producto/entity/contacto_producto.entity';
 import { DireccionModule } from './direccion/direccion.module';
 import { Direccion } from './direccion/entity/direccion.entity';
 import { JWTGuard } from './guards/jwt.guard';
@@ -32,6 +31,7 @@ import { Region } from './region/entity/region.entity';
 import { RegionModule } from './region/region.module';
 import { Usuario } from './usuario/entity/usuario.entity';
 import { UsuarioModule } from './usuario/usuario.module';
+
 @Module({
   imports: [
     ServeStaticModule.forRoot({
@@ -53,27 +53,28 @@ import { UsuarioModule } from './usuario/usuario.module';
         Producto,
         Carrito,
         Casa_cervecera,
+
         Contacto,
-        Cliente,
         Usuario,
         Region,
         Direccion,
         Comuna,
         Pack,
-        ClienteProducto,
+        ContactoProducto,
+        Venta,
       ],
     }),
     ProductosModule,
     CarritoModule,
     CasaCerveceraModule,
+
     ContactoModule,
-    ClienteModule,
     UsuarioModule,
     RegionModule,
     DireccionModule,
     ComunaModule,
     PackModule,
-    ClienteProductoModule,
+    ContactoProductoModule,
     AbilityModule,
   ],
 

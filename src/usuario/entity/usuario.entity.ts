@@ -13,7 +13,4 @@ export class Usuario {
 
   @Column({ name: 'isAdmin' })
   isAdmin: boolean;
-
-  @Column({ name: 'email' })
-  email: string;
 }

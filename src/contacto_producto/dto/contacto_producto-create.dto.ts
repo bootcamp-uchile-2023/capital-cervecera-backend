@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsInt } from 'class-validator';
 
-export class CreateClienteProductoDto {
+export class CreateContactoProductoDto {
   @ApiProperty()
   @IsInt({ message: 'el atributo debe ser un number ' })
-  readonly cliente_id: number;
+  readonly contacto_id: number;
 
   @ApiProperty()
   @IsInt({ message: 'el atributo debe ser un number ' })

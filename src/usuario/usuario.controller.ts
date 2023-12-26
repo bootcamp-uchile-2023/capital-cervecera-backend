@@ -44,6 +44,7 @@ export class UsuarioController {
     return await this.usuarioService.getAllUsuarios();
   }
 
+  @Public()
   @ApiParam({
     name: 'id',
     description: 'identificador del usuario que desea buscar',

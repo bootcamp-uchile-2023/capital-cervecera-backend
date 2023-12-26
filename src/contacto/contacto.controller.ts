@@ -21,6 +21,7 @@ import { ContactoService } from './contacto.service';
 import { CreateContactoDto } from './dto/contacto-create.dto';
 import { UpdateContactoDto } from './dto/contacto-update.dto';
 import { ContactoDto } from './dto/contacto.dto';
+import { EstrellasCreateDto } from './dto/estrellas-create.dto';
 
 @Controller('contacto')
 export class ContactoController {
@@ -36,17 +37,17 @@ export class ContactoController {
   async getAllContactos(): Promise<ContactoDto[]> {
     return await this.contactoService.getAllContactos();
   }
-
+  @Public()
   @ApiParam({
     name: 'id',
     description: 'identificador del contacto que desea buscar',
   })
-  @Get('contacto/:id')
+  @Get('/:id')
   getContactoById(@Param('id') id: number) {
     return this.contactoService.getContactoById(id);
   }
-
-  @Post()
+  @Public()
+  @Post('register')
   @ApiBody({
     type: CreateContactoDto,
     description: 'Datos del contacto a crear',
@@ -65,7 +66,7 @@ export class ContactoController {
       throw new BadRequestException(error.message);
     }
   }
-
+  @Public()
   @Delete(':id')
   @ApiOkResponse({ description: 'Contacto eliminado', type: ContactoDto })
   @ApiNotFoundResponse({ description: 'No se encontró el contacto' })
@@ -90,13 +91,30 @@ export class ContactoController {
     @Body() updateContactoDto: UpdateContactoDto,
   ): Promise<ContactoDto> {
     try {
-      const resultado = await this.contactoService.update(
-        id,
-        updateContactoDto,
-      );
+      const resultado = await this.contactoService.update(id, updateContactoDto);
       return resultado;
     } catch (error) {
       throw new NotFoundException(error.message);
+    }
+  }
+
+  @Post('estrellas')
+  @ApiBody({
+    type: EstrellasCreateDto,
+    description: 'Datos del contacto a crear',
+  })
+  @ApiCreatedResponse({
+    description: 'El contacto se creó correctamente',
+    type: EstrellasCreateDto,
+  })
+  async estrellasCreate(@Body() estrellasCreateDto: EstrellasCreateDto) {
+    try {
+      const resultado = await this.contactoService.estrellasCreate(
+        estrellasCreateDto,
+      );
+      return resultado;
+    } catch (error) {
+      throw new BadRequestException(error.message);
     }
   }
 }

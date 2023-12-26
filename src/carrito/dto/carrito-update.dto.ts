@@ -3,26 +3,26 @@ import { IsInt, IsOptional, IsString } from 'class-validator';
 
 export class UpdateCarritoDto {
   @ApiProperty({
-    example: '1000',
-    description: ' El total de la venta es de 1000 ',
-  })
-  @IsOptional()
-  @IsInt()
-  total: number;
-
-  @ApiProperty({
-    example: '500',
-    description: 'El subtotal de la venta es de 500',
-  })
-  @IsOptional()
-  @IsInt()
-  sub_total: number;
-
-  @ApiProperty({
     example: 'Vacio',
     description: 'El estado del carrito esta Vacio',
   })
   @IsOptional()
   @IsString()
   estado: string;
+
+  @ApiProperty({
+    example: '1',
+    description: 'El id de la venta',
+  })
+  @IsOptional()
+  @IsInt()
+  venta_id: number;
+
+  @ApiProperty({
+    example: '1',
+    description: 'El id del contacto',
+  })
+  @IsOptional()
+  @IsInt()
+  contacto_id: number;
 }

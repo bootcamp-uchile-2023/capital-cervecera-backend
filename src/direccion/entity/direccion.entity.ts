@@ -15,11 +15,8 @@ export class Direccion {
   @Column({ name: 'direccion' })
   direccion: string;
 
-  @Column({ name: 'numero' })
-  numero: string;
-
   @Column({ name: 'depto_casa' })
-  depto_casa: boolean;
+  depto_casa: string;
 
   @Column({ name: 'comuna_id' })
   comuna_id: number;

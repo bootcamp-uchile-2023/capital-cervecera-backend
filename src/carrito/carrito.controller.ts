@@ -8,6 +8,7 @@ import {
   Param,
   Patch,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -24,6 +25,7 @@ import { CarritoService } from './carrito.service';
 import { CreateCarritoDto } from './dto/carrito-create.dto';
 import { UpdateCarritoDto } from './dto/carrito-update.dto';
 import { CarritoDto } from './dto/carrito.dto';
+import { CreateVentaDto } from './dto/create-venta.dto';
 
 @Controller('carrito')
 export class CarritoController {
@@ -98,17 +100,46 @@ export class CarritoController {
   async update(
     @Param('id') id: number,
     @Body() updateCarritoDto: UpdateCarritoDto,
+    @Req() req: Request,
   ): Promise<CarritoDto> {
+    const user = req['CURRENT_USER'];
     try {
-      const resultado = await this.carritoService.update(id, updateCarritoDto);
+      const resultado = await this.carritoService.update(
+        id,
+        updateCarritoDto,
+        user,
+      );
       return resultado;
     } catch (error) {
       throw new NotFoundException(error.message);
     }
   }
 
-  @Get('contacto')
-  getCarritoClienteById(@Param('id') id: number) {
-    return this.carritoService.getCarritoClienteById(id);
+  @ApiHeader({
+    name: 'Autorizacion',
+    description: 'Token de autorizacion',
+    required: true,
+  })
+  @Get(':id/contacto')
+  getCarritoContactoById(@Param('id') id: number) {
+    return this.carritoService.getCarritoContactoById(id);
+  }
+  @Public()
+  @Post('envio')
+  @ApiBody({
+    type: CreateVentaDto,
+    description: 'Datos del carrito a crear',
+  })
+  @ApiCreatedResponse({
+    description: 'El carrito se creó correctamente',
+    type: CreateVentaDto,
+  })
+  async createVenta(@Body() createVentaDto: CreateVentaDto): Promise<number> {
+    try {
+      const resultado = await this.carritoService.createVenta(createVentaDto);
+      return resultado;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 }
