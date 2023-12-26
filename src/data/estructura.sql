@@ -46,8 +46,8 @@ CREATE TABLE producto (
 	nombre_producto VARCHAR(255),
 	precio_venta INT,
 	is_recomendado BOOLEAN DEFAULT FALSE,
-    url_imagen_card VARCHAR (255),
-    url_imagen_detalle VARCHAR (255),
+    base64_imagen_card VARCHAR (255),
+    base64_imagen_detalle VARCHAR (255),
     is_promo boolean,
     volumen_cc INT,
     detalle TEXT,
@@ -57,7 +57,7 @@ CREATE TABLE producto (
 	FOREIGN KEY (casa_cervecera_id) REFERENCES casa_cervecera(id)
 );
 
-CREATE TABLE cliente (
+CREATE TABLE contacto (
   id INT AUTO_INCREMENT PRIMARY KEY,
   usuario_id INT NOT NULL,
   direccion_id INT NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE cliente (
   esta_atento BOOLEAN DEFAULT FALSE,
   apellido_materno VARCHAR(255) NOT NULL,
   apellido_paterno VARCHAR(255) NOT NULL,
-  url_imagen VARCHAR (255),
+  base64_imagen VARCHAR (255),
   FOREIGN KEY (usuario_id) REFERENCES usuario(id),
   FOREIGN KEY (direccion_id) REFERENCES direccion(id)
 );
@@ -75,18 +75,18 @@ CREATE TABLE carrito (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	total INT,
 	sub_total INT,
-	cliente_id INT NOT NULL,
+	contacto_id INT NOT NULL,
 	estado ENUM('Vacio', 'Activo', 'Abandonado', 'Completado', 'Eliminado'),
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (cliente_id) REFERENCES cliente(id)
+    FOREIGN KEY (contacto_id) REFERENCES contacto(id)
 );
 
 CREATE TABLE contacto (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	email VARCHAR(255) NOT NULL,
 	telefono VARCHAR(255) NOT NULL,
-	cliente_id INT,
-	FOREIGN KEY (cliente_id) REFERENCES cliente(id)
+	contacto_id INT,
+	FOREIGN KEY (contacto_id) REFERENCES contacto(id)
 );
 
 
@@ -113,11 +113,11 @@ CREATE TABLE `producto_pack` (
   PRIMARY KEY (`producto_id`, `pack_id`)
 );
 
-CREATE TABLE `cliente_producto` (
-  `cliente_id` INT,
+CREATE TABLE `contacto_producto` (
+  `contacto_id` INT,
   `producto_id` INT,
   `estrellas` INT,
-  PRIMARY KEY (`cliente_id`, `producto_id`)
+  PRIMARY KEY (`contacto_id`, `producto_id`)
 );
 INSERT INTO region (nombre) VALUES ('Región Metropolitana'), ('Región de Valparaíso'), ('Región del Biobío');
 
@@ -156,16 +156,16 @@ INSERT INTO producto (sku,nombre_producto,casa_cervecera_id, tipo,volumen_cc, am
 ('STO-PORT-750-0015','Nessie',4,'Experimentales',330,'Bajo',"8,0% ABV",3000,2700,false,false,1,"Esta cerveza de estilo Wee Heavy se distingue por su intenso color marrón rubí. Ofrece un aroma cautivador que combina toffe, toques ahumados y matices de chocolate. En boca, se siente un cuerpo pleno con una ligera sensación alcohólica. Su retrogusto es corto pero complejo, evocando frutos secos. Esta cerveza, de complejidad media, es ideal para aquellos que buscan una bebida con mayor contenido alcohólico.");
 
 
-INSERT INTO cliente (usuario_id, direccion_id, rut, nombre, esta_atento, apellido_materno, apellido_paterno) VALUES
+INSERT INTO contacto (usuario_id, direccion_id, rut, nombre, esta_atento, apellido_materno, apellido_paterno) VALUES
 (1, 1, '12345678-9', 'Cristian', 1, 'Lizama', 'Lavin'),
 (2, 2, '98765432-1', 'Luis', 0, 'Acevedo', 'Acevedo'),
 (3, 3, '18021591-3', 'Alejandra', 1, 'Acevedo', 'Acevedo');
 
-INSERT INTO carrito (total, sub_total, cliente_id, estado) VALUES (0, 0, 1, 'Activo'), (0, 0, 2, 'Vacio');
+INSERT INTO carrito (total, sub_total, contacto_id, estado) VALUES (0, 0, 1, 'Activo'), (0, 0, 2, 'Vacio');
 
-INSERT INTO contacto (email, telefono, cliente_id) VALUES
-('cliente1@gmail.com', '12345678', 1),
-('cliente2@gmail.com', '98765432', 2);
+INSERT INTO contacto (email, telefono, contacto_id) VALUES
+('contacto1@gmail.com', '12345678', 1),
+('contacto2@gmail.com', '98765432', 2);
 
 INSERT INTO carrito_producto (carrito_id, producto_id ) VALUES (1, 1), (1, 2), (2, 3);
 
@@ -173,7 +173,7 @@ INSERT INTO pack (nombre, precio_venta) VALUES ('Pack 1', 2500), ('Pack 2', 3000
 
 INSERT INTO producto_pack (producto_id, pack_id) VALUES (1, 1), (2, 1), (3, 2);
 
-INSERT INTO cliente_producto (cliente_id, producto_id,estrellas) VALUES (1, 1,2), (2, 2,1), (1, 2,2);
+INSERT INTO contacto_producto (contacto_id, producto_id,estrellas) VALUES (1, 1,2), (2, 2,1), (1, 2,2);
 
 
 

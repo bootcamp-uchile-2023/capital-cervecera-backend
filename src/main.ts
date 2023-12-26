@@ -10,10 +10,9 @@ import { ValidationPipe } from '@nestjs/common';
 import { json, urlencoded } from 'express';
 import { CarritoModule } from './carrito/carrito.module';
 import { CasaCerveceraModule } from './casacervecera/casacervecera.module';
-import { ClienteModule } from './cliente/cliente.module';
-import { ClienteProductoModule } from './cliente_producto/cliente_producto.module';
 import { ComunaModule } from './comuna/comuna.module';
 import { ContactoModule } from './contacto/contacto.module';
+import { ContactoProductoModule } from './contacto_producto/contacto_producto.module';
 import { DireccionModule } from './direccion/direccion.module';
 import { PackModule } from './pack/pack.module';
 import { RegionModule } from './region/region.module';
@@ -71,6 +70,7 @@ async function bootstrap() {
       route: 'api/casa',
       module: CasaCerveceraModule,
     },
+
     {
       title: 'Casa Cervecera',
       description: 'Api de Contacto',
@@ -78,14 +78,6 @@ async function bootstrap() {
       tag: 'contacto',
       route: 'api/contacto',
       module: ContactoModule,
-    },
-    {
-      title: 'Casa Cervecera',
-      description: 'Api de Cliente',
-      version: '1.0',
-      tag: 'cliente',
-      route: 'api/cliente',
-      module: ClienteModule,
     },
     {
       title: 'Casa Cervecera',
@@ -121,11 +113,11 @@ async function bootstrap() {
     },
     {
       title: 'Casa Cervecera',
-      description: 'Api de cliente_producto',
+      description: 'Api de contacto_producto',
       version: '1.0',
-      tag: 'cliente_producto',
-      route: 'api/cliente_producto',
-      module: ClienteProductoModule,
+      tag: 'contacto_producto',
+      route: 'api/contacto_producto',
+      module: ContactoProductoModule,
     },
   ];
 

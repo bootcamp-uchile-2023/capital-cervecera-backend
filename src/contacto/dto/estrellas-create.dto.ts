@@ -8,7 +8,7 @@ export class EstrellasCreateDto {
 
   @ApiProperty()
   @IsInt()
-  cliente_id: number;
+  contacto_id: number;
 
   @ApiProperty()
   @IsInt()

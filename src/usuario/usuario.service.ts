@@ -87,6 +87,7 @@ export class UsuarioService {
       decipher.update(Buffer.from(encontrarUsuario.password, 'hex')),
       decipher.final(),
     ]);
+    console.log(encontrarUsuario);
     const pswOriginal = decrypted.toString();
 
     if (usuarioLoginDto.password === pswOriginal) {
@@ -94,7 +95,6 @@ export class UsuarioService {
         id: encontrarUsuario.id,
         username: usuarioLoginDto.username,
         isAdmin: encontrarUsuario.isAdmin,
-        email: encontrarUsuario.email,
       };
       return {
         access_token: await this.jwtService.signAsync(payload),

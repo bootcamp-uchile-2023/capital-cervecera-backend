@@ -9,15 +9,11 @@ export class CarritoDto {
 
   @ApiProperty()
   @IsInt({ message: 'el atributo debe ser un number' })
-  total: number;
+  contacto_id: number;
 
   @ApiProperty()
   @IsInt({ message: 'el atributo debe ser un number' })
-  sub_total: number;
-
-  @ApiProperty()
-  @IsInt({ message: 'el atributo debe ser un number' })
-  cliente_id: number;
+  venta_id: number;
 
   @ApiProperty()
   @IsString({ message: 'el atributo debe ser un string' })

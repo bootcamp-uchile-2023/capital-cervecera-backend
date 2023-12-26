@@ -8,7 +8,7 @@ export class UsuarioMapper {
 
     dto.password = entidad.password;
     dto.username = entidad.username;
-    dto.email = entidad.email;
+
     dto.isAdmin = entidad.isAdmin;
 
     return dto;
@@ -23,7 +23,6 @@ export class UsuarioMapper {
 
     entidad.password = dto.password;
     entidad.username = dto.username;
-    entidad.email = dto.email;
 
     return entidad;
   }

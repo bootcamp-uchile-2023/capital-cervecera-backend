@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsInt, IsOptional, IsString } from 'class-validator';
+import { IsInt, IsOptional, IsString } from 'class-validator';
 
 export class UpdateDireccionDto {
   @ApiProperty({
@@ -14,17 +14,13 @@ export class UpdateDireccionDto {
     example: '2276',
     description: 'numero de la direccion del usuario',
   })
-  @IsOptional()
-  @IsString({ message: 'el atributo debe ser un string' })
-  readonly numero: string;
-
   @ApiProperty({
     example: true,
     description: 'Casa o Departamento del usuario',
   })
   @IsOptional()
-  @IsBoolean({ message: 'el atributo debe ser un boolean' })
-  readonly depto_casa: boolean;
+  @IsString({ message: 'el atributo debe ser un string' })
+  readonly depto_casa: string;
 
   @ApiProperty({
     example: '1',

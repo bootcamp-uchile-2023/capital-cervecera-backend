@@ -6,11 +6,10 @@ export class CarritoMapper {
   static toDto(entidad: Carrito): CarritoDto {
     const dto = new CarritoDto();
     dto.id = entidad.id;
-    dto.cliente_id = entidad.cliente_id;
+    dto.contacto_id = entidad.contacto_id;
     dto.created_at = entidad.created_at;
     dto.estado = entidad.estado;
-    dto.sub_total = entidad.sub_total;
-    dto.total = entidad.total;
+    dto.venta_id = entidad.venta_id;
 
     return dto;
   }
@@ -23,8 +22,9 @@ export class CarritoMapper {
     const entidad = new Carrito();
 
     entidad.estado = dto.estado;
-    entidad.sub_total = dto.sub_total;
-    entidad.total = dto.total;
+    entidad.contacto_id = dto.contacto_id;
+    entidad.venta_id = dto.venta_id;
+
     return entidad;
   }
 }

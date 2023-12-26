@@ -84,9 +84,7 @@ export class DireccionService {
     if (updateDireccionDto.direccion) {
       encontrado.direccion = updateDireccionDto.direccion;
     }
-    if (updateDireccionDto.numero) {
-      encontrado.numero = updateDireccionDto.numero;
-    }
+
     if (updateDireccionDto.depto_casa) {
       encontrado.depto_casa = updateDireccionDto.depto_casa;
     }

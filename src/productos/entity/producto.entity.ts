@@ -1,5 +1,5 @@
 import { Casa_cervecera } from 'src/casacervecera/entity/casacervecera.entity';
-import { ClienteProducto } from 'src/cliente_producto/entity/cliente_producto.entity';
+import { ContactoProducto } from 'src/contacto_producto/entity/contacto_producto.entity';
 import { Pack } from 'src/pack/entity/pack.entity';
 import {
   Column,
@@ -41,11 +41,11 @@ export class Producto {
   @Column({ name: 'casa_cervecera_id' })
   casa_cervecera_id: number;
 
-  @Column({ name: 'url_imagen_detalle' })
-  url_imagen_detalle: string;
+  @Column({ name: 'base64_imagen_detalle' })
+  base64_imagen_detalle: string;
 
-  @Column({ name: 'url_imagen_card' })
-  url_imagen_card: string;
+  @Column({ name: 'base64_imagen_card' })
+  base64_imagen_card: string;
 
   @Column({ name: 'is_promo' })
   is_promo: boolean;
@@ -74,6 +74,6 @@ export class Producto {
   })
   packs: Pack[];
 
-  @OneToMany(() => ClienteProducto, (u) => u.producto)
-  cliente_productos: ClienteProducto[];
+  @OneToMany(() => ContactoProducto, (u) => u.producto)
+  contacto_productos: ContactoProducto[];
 }

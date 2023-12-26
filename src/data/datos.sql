@@ -7,7 +7,7 @@ VALUES
   ('Pack Navideño', 5, 29099, 'https://ejemplo.com/imagen_packE.jpg');
 
 
-INSERT INTO cliente (id, nombre, direccion, telefono, email, contrasena)
+INSERT INTO contacto (id, nombre, direccion, telefono, email, contrasena)
 VALUES
   ('2dbf7c60-21d8-4a2f-a0b8-7df71e5b23c1', 'Juan Pérez', 'Calle Principal 123', '+56 9 12345678', 'juan.perez@example.com', 'contraseña123'),
   ('c9e78145-98fc-4c28-85c6-7a620f2df4aa', 'María González', 'Avenida Central 456', '+56 9 98765432', 'maria.gonzalez@example.com', 'claveSegura45'),
@@ -24,7 +24,7 @@ VALUES
   ('Cerveceria Elpuerto', 'Pilsner', 4.8, 'bajo', 'Pilsner Refrescante', 4079),
   ('Cerveceria Kross', 'Wheat Beer', 5.4, 'medio', 'Wheat Beer Suave', 5029);
 
-  INSERT INTO carrito_de_compra (total, sub_total, estado,id_cliente)
+  INSERT INTO carrito_de_compra (total, sub_total, estado,id_contacto)
 VALUES
   (50000, 45000, 'En Proceso','2dbf7c60-21d8-4a2f-a0b8-7df71e5b23c1'),
   (75050, 70000, 'En Proceso','2dbf7c60-21d8-4a2f-a0b8-7df71e5b23c1'),
@@ -57,7 +57,7 @@ VALUES
 (4,null,null,2),
 (5,2,null,null);
 
-INSERT INTO recomendacion (estrellas, id_cliente,id_producto)
+INSERT INTO recomendacion (estrellas, id_contacto,id_producto)
 VALUES
 (2,'146e93e7-39bf-4f06-9b8e-3f27c935a6b8',1),
 (4,'2dbf7c60-21d8-4a2f-a0b8-7df71e5b23c1',2),

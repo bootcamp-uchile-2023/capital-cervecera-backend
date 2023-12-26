@@ -20,7 +20,7 @@ export class ProductosService {
       relations: {
         casa_cervecera: true,
         packs: true,
-        cliente_productos: true,
+        contacto_productos: true,
       },
     });
 
@@ -74,7 +74,7 @@ export class ProductosService {
       relations: {
         casa_cervecera: true,
         packs: true,
-        cliente_productos: true,
+        contacto_productos: true,
       },
     });
 
@@ -90,7 +90,7 @@ export class ProductosService {
         is_promo: true,
       },
       relations: {
-        cliente_productos: true,
+        contacto_productos: true,
       },
     });
 
@@ -103,7 +103,7 @@ export class ProductosService {
         is_recomendado: true,
       },
       relations: {
-        cliente_productos: true,
+        contacto_productos: true,
       },
     });
 
@@ -131,7 +131,7 @@ export class ProductosService {
       },
       relations: {
         casa_cervecera: true,
-        cliente_productos: true,
+        contacto_productos: true,
       },
     });
 
@@ -143,7 +143,7 @@ export class ProductosService {
         id: id,
       },
       relations: {
-        cliente_productos: true,
+        contacto_productos: true,
       },
     });
     if (!encontrado) {

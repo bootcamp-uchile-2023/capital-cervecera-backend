@@ -1,14 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsInt, IsOptional } from 'class-validator';
 
-export class UpdateClienteProductoDto {
+export class UpdateContactoProductoDto {
   @ApiProperty({
     example: '1',
-    description: ' El id del cliente',
+    description: ' El id del contacto',
   })
   @IsOptional()
   @IsInt({ message: 'el atributo debe ser un number' })
-  cliente_id: number;
+  contacto_id: number;
 
   @ApiProperty({
     example: '1',

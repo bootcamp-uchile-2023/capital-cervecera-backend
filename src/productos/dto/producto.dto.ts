@@ -49,11 +49,11 @@ export class ProductoDto {
 
   @ApiProperty()
   @IsString({ message: 'el atributo debe ser un string' }) //prox base64
-  url_imagen_card: string;
+  base64_imagen_card: string;
 
   @ApiProperty()
   @IsString({ message: 'el atributo debe ser un string' }) // prox base64
-  url_imagen_detalle: string;
+  base64_imagen_detalle: string;
 
   @ApiProperty()
   @IsBoolean({ message: 'el atributo debe ser un boolean' })

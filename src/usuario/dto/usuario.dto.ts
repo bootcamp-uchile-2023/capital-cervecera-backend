@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsEmail, IsString } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 
 export class UsuarioDto {
   @ApiProperty()
@@ -13,8 +13,4 @@ export class UsuarioDto {
   @ApiProperty()
   @IsBoolean({ message: 'el atributo debe ser un boolean' })
   isAdmin: boolean;
-
-  @ApiProperty()
-  @IsEmail()
-  email: string;
 }
