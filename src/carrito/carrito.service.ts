@@ -102,7 +102,10 @@ export class CarritoService {
     return CarritoMapper.toDto(resultado);
   }
 
-  async getCarritoContactoById(id: number): Promise<ContactoDto> {
+  async getCarritoContactoById(
+    id: number,
+    user: Usuario,
+  ): Promise<ContactoDto> {
     const resultado: Carrito = await this.carritoRepository.findOne({
       where: {
         id: id,
@@ -111,9 +114,11 @@ export class CarritoService {
         contacto: true,
       },
     });
+
     if (!resultado) {
       throw new BadRequestException();
     }
+    this.abilityFactory.checkAbility(user, Action.Read, resultado.contacto); // en caso de que se revise que el usuario modifique su carrito o quiera verlo, se debe crear la funcion dentro del service, por que primero se revisa si esta en la BD, Como en el caso del UPDATE
 
     return ContactoMapper.toDto(resultado.contacto);
   }
@@ -150,7 +155,7 @@ export class CarritoService {
       const entity = ContactoMapper.toEntityCarrito(contacto);
       newContacto = await this.contactoRepository.save(entity);
     } catch (error) {
-      throw new BadRequestException();
+      throw new BadRequestException(error);
     }
     try {
       createVentaDto.productos.map(async ({ id, cantidad }) => {

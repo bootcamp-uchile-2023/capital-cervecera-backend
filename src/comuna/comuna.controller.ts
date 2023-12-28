@@ -16,11 +16,11 @@ import {
   ApiOkResponse,
   ApiParam,
 } from '@nestjs/swagger';
+import { Public } from 'src/guards/public.decorator';
 import { ComunaService } from './comuna.service';
 import { CreateComunaDto } from './dto/comuna-create.dto';
 import { UpdateComunaDto } from './dto/comuna-update.dto';
 import { ComunaDto } from './dto/comuna.dto';
-import { Public } from 'src/guards/public.decorator';
 
 @Controller('comuna')
 export class ComunaController {

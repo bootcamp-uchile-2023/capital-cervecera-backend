@@ -91,7 +91,10 @@ export class ContactoController {
     @Body() updateContactoDto: UpdateContactoDto,
   ): Promise<ContactoDto> {
     try {
-      const resultado = await this.contactoService.update(id, updateContactoDto);
+      const resultado = await this.contactoService.update(
+        id,
+        updateContactoDto,
+      );
       return resultado;
     } catch (error) {
       throw new NotFoundException(error.message);

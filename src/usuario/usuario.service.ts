@@ -87,7 +87,7 @@ export class UsuarioService {
       decipher.update(Buffer.from(encontrarUsuario.password, 'hex')),
       decipher.final(),
     ]);
-    console.log(encontrarUsuario);
+
     const pswOriginal = decrypted.toString();
 
     if (usuarioLoginDto.password === pswOriginal) {

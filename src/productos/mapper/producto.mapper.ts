@@ -42,7 +42,7 @@ export class ProductoMapper {
     if (dto.image_detalle_base64) {
       const base64Data = dto.image_detalle_base64.split(',')[1];
       const buffer = Buffer.from(base64Data, 'base64');
-      const newName = dto.nombre_producto.toLowerCase().replace(' ', '_');
+      const newName = dto.nombre_producto.toLowerCase().replace(' ', '_'); // para que esten en minuscula y sean siempre con _ como me pidio el front xd
       const path = `imagenes/productos/detalles/${newName}-detalles.jpg`;
       await FS.writeFile('assets/' + path, buffer);
 
@@ -69,6 +69,9 @@ export class ProductoMapper {
   }
 
   static calcEstrellas(contacto_productos: ContactoProducto[]) {
+    if (!contacto_productos) {
+      return 0;
+    }
     const suma = contacto_productos.reduce((sum, cp) => {
       return sum + cp.estrellas;
     }, 0);

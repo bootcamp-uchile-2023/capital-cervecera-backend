@@ -9,7 +9,6 @@ import {
   Patch,
   Post,
   Req,
-  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -19,13 +18,16 @@ import {
   ApiOkResponse,
   ApiParam,
 } from '@nestjs/swagger';
-import { JWTGuard } from 'src/guards/jwt.guard';
+import { CheckAbilities } from 'src/ability/abilities.decorator';
+import { Action } from 'src/ability/ability.factory';
+import { ContactoDto } from 'src/contacto/dto/contacto.dto';
 import { Public } from 'src/guards/public.decorator';
 import { CarritoService } from './carrito.service';
 import { CreateCarritoDto } from './dto/carrito-create.dto';
 import { UpdateCarritoDto } from './dto/carrito-update.dto';
 import { CarritoDto } from './dto/carrito.dto';
 import { CreateVentaDto } from './dto/create-venta.dto';
+import { Carrito } from './entity/carrito.entity';
 
 @Controller('carrito')
 export class CarritoController {
@@ -47,7 +49,7 @@ export class CarritoController {
     description: 'identificador del carrito que desea buscar',
   })
   @Public()
-  @Get('{carrito_id}')
+  @Get(':id')
   getCarritoById(@Param('id') id: number) {
     return this.carritoService.getCarritoById(id);
   }
@@ -71,8 +73,13 @@ export class CarritoController {
       throw new BadRequestException(error.message);
     }
   }
-
+  @ApiHeader({
+    name: 'Autorizacion',
+    description: 'Token de autorizacion',
+    required: true,
+  })
   @Delete(':id')
+  @CheckAbilities({ action: Action.Delete, subject: Carrito })
   @ApiOkResponse({ description: 'Carrito eliminado', type: CarritoDto })
   @ApiNotFoundResponse({ description: 'No se encontró el carrito' })
   async remove(@Param('id') id: number): Promise<CarritoDto> {
@@ -84,12 +91,6 @@ export class CarritoController {
     }
   }
 
-  @ApiHeader({
-    name: 'Autorizacion',
-    description: 'Token de autorizacion',
-    required: true,
-  })
-  @UseGuards(JWTGuard)
   @Patch(':id')
   @ApiBody({
     type: UpdateCarritoDto,
@@ -121,9 +122,14 @@ export class CarritoController {
     required: true,
   })
   @Get(':id/contacto')
-  getCarritoContactoById(@Param('id') id: number) {
-    return this.carritoService.getCarritoContactoById(id);
+  async getCarritoContactoById(
+    @Param('id') id: number,
+    @Req() req: Request,
+  ): Promise<ContactoDto> {
+    const user = req['CURRENT_USER'];
+    return await this.carritoService.getCarritoContactoById(id, user);
   }
+
   @Public()
   @Post('envio')
   @ApiBody({

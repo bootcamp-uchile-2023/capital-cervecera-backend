@@ -36,11 +36,6 @@ export class UpdateProductoDto {
   @IsString()
   nombre_producto: string;
 
-  @ApiProperty({ example: '1000', description: 'Precio compra del producto' })
-  @IsOptional()
-  @IsInt()
-  precio_compra: number;
-
   @ApiProperty({ example: '1500', description: 'Precio venta del producto' })
   @IsOptional()
   @IsInt()
