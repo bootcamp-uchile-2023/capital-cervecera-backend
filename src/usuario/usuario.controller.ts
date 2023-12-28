@@ -18,7 +18,7 @@ import {
 } from '@nestjs/swagger';
 
 import { CheckAbilities } from 'src/ability/abilities.decorator';
-import { AbilityFactory, Action } from 'src/ability/ability.factory';
+import { Action } from 'src/ability/ability.factory';
 import { Public } from 'src/guards/public.decorator';
 import { CreateUsuarioDto } from './dto/usuario-create.dto';
 import { UsuarioLoginDto } from './dto/usuario-login.dto';
@@ -29,10 +29,7 @@ import { UsuarioService } from './usuario.service';
 
 @Controller('usuario')
 export class UsuarioController {
-  constructor(
-    private readonly usuarioService: UsuarioService,
-    private abilityFactory: AbilityFactory,
-  ) {}
+  constructor(private readonly usuarioService: UsuarioService) {}
 
   @Get()
   @ApiOkResponse({

@@ -163,9 +163,10 @@ export class ProductosService {
       },
 
       relations: {
-        casa_cervecera: false,
+        casa_cervecera: true,
       },
     });
+
     if (!encontrado) {
       throw Error('No se encontró el producto');
     }
@@ -194,7 +195,41 @@ export class ProductosService {
       encontrado.tipo = updateProductoDto.tipo;
     }
 
+    if (updateProductoDto.base64_imagen_card) {
+      encontrado.base64_imagen_card = updateProductoDto.base64_imagen_card;
+    }
+
+    if (updateProductoDto.base64_imagen_detalle) {
+      encontrado.base64_imagen_detalle =
+        updateProductoDto.base64_imagen_detalle;
+    }
+
+    if (updateProductoDto.detalle) {
+      encontrado.detalle = updateProductoDto.detalle;
+    }
+
+    if (updateProductoDto.sku) {
+      encontrado.sku = updateProductoDto.sku;
+    }
+
+    if (updateProductoDto.volumen_cc) {
+      encontrado.volumen_cc = updateProductoDto.volumen_cc;
+    }
+
+    if (updateProductoDto.stock) {
+      encontrado.stock = updateProductoDto.stock;
+    }
+
+    if (updateProductoDto.precio_descuento) {
+      encontrado.precio_descuento = updateProductoDto.precio_descuento;
+    }
+
+    if (updateProductoDto.is_promo) {
+      encontrado.is_promo = updateProductoDto.is_promo;
+    }
+
     const resultado: Producto = await this.productoRepository.save(encontrado);
+
     const resultadoWithRelation = await this.productoRepository.findOne({
       where: {
         id: resultado.id,

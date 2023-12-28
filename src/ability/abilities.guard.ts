@@ -21,7 +21,7 @@ export class AbilitiesGuard implements CanActivate {
       'isPublic',
       context.getHandler(),
     );
-    if (isPublic) return true;
+    if (isPublic) return true; // decorador creado para que cualquiera pueda acceder al endpoint
 
     const rules =
       this.reflector.get<RequiredRule[]>(CHECK_ABILITY, context.getHandler()) ||

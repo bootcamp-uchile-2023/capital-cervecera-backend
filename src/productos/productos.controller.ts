@@ -20,10 +20,13 @@ import {
   ApiParam,
   ApiQuery,
 } from '@nestjs/swagger';
+import { CheckAbilities } from 'src/ability/abilities.decorator';
+import { Action } from 'src/ability/ability.factory';
 import { Public } from 'src/guards/public.decorator';
 import { CreateProductoDto } from './dto/producto-create.dto';
 import { UpdateProductoDto } from './dto/producto-update.dto';
 import { ProductoDto } from './dto/producto.dto';
+import { Producto } from './entity/producto.entity';
 import { ProductosService } from './productos.service';
 
 @Controller('productos')
@@ -117,6 +120,7 @@ export class ProductosController {
     required: true,
   })
   @Post()
+  @CheckAbilities({ action: Action.Create, subject: Producto })
   @ApiBody({
     type: CreateProductoDto,
     description: 'Datos del producto a crear',
@@ -138,6 +142,12 @@ export class ProductosController {
       throw new BadRequestException(error.message);
     }
   }
+
+  @ApiHeader({
+    name: 'Autorizacion',
+    description: 'Token de autorizacion',
+    required: true,
+  })
   @Delete(':id')
   @ApiOkResponse({ description: 'Producto eliminado', type: ProductoDto })
   @ApiNotFoundResponse({ description: 'No se encontró el producto' })
@@ -149,8 +159,13 @@ export class ProductosController {
       throw new NotFoundException(error.message);
     }
   }
-
+  @ApiHeader({
+    name: 'Autorizacion',
+    description: 'Token de autorizacion',
+    required: true,
+  })
   @Patch(':id')
+  @CheckAbilities({ action: Action.Update, subject: Producto })
   @ApiBody({
     type: UpdateProductoDto,
     description: 'Datos del producto a actualizar',
