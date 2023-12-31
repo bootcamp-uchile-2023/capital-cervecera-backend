@@ -4,6 +4,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   NotFoundException,
   Param,
   Patch,
@@ -12,6 +13,7 @@ import {
 import {
   ApiBody,
   ApiCreatedResponse,
+  ApiHeader,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiParam,
@@ -29,9 +31,16 @@ import { UsuarioService } from './usuario.service';
 
 @Controller('usuario')
 export class UsuarioController {
+  private readonly logger = new Logger(UsuarioController.name);
   constructor(private readonly usuarioService: UsuarioService) {}
 
+  @ApiHeader({
+    name: 'Autorizacion',
+    description: 'Token de autorizacion',
+    required: true,
+  })
   @Get()
+  @CheckAbilities({ action: Action.Read, subject: Usuario })
   @ApiOkResponse({
     description: 'usuarios encontrados',
     type: UsuarioDto,
@@ -87,6 +96,7 @@ export class UsuarioController {
   async login(@Body() usuarioLoginDto: UsuarioLoginDto) {
     try {
       const resultado = await this.usuarioService.login(usuarioLoginDto);
+      this.logger.log('aca se muestra el usuario que se va a logear');
       return resultado;
     } catch (error) {
       throw new BadRequestException(error.message);
