@@ -6,7 +6,7 @@ import {
   ForbiddenError,
   InferSubjects,
 } from '@casl/ability';
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
 import { Carrito } from 'src/carrito/entity/carrito.entity';
 import { Contacto } from 'src/contacto/entity/contacto.entity';
 import { Producto } from 'src/productos/entity/producto.entity';
@@ -30,6 +30,8 @@ export type AppAbility = Ability<[Action, Subjects]>;
 
 @Injectable()
 export class AbilityFactory {
+  private readonly logger = new Logger();
+
   defineAbility(usuario: Usuario) {
     const { can, build } = new AbilityBuilder<Ability<[Action, Subjects]>>(
       Ability as AbilityClass<AppAbility>,
@@ -49,7 +51,13 @@ export class AbilityFactory {
   }
   checkAbility(usuario: Usuario, action: Action, entity: Subjects) {
     const ability = this.defineAbility(usuario);
+    const isAllowed = ability.can(action, entity);
     try {
+      if (!isAllowed) {
+        this.logger.log(
+          'no tiene acceso, solo el admin puede realizar este proceso',
+        );
+      }
       return ForbiddenError.from(ability).throwUnlessCan(action, entity); // aca avisará que no puede realizar la acción por que no tiene los permisos
     } catch (error) {
       if (error instanceof ForbiddenError) {

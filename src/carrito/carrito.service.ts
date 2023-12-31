@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -12,8 +17,6 @@ import { DireccionMapper } from 'src/direccion/mapper/direccion.mapper';
 import { Producto } from 'src/productos/entity/producto.entity';
 import { Usuario } from 'src/usuario/entity/usuario.entity';
 import { AbilityFactory, Action } from '../ability/ability.factory';
-import { CreateCarritoDto } from './dto/carrito-create.dto';
-import { UpdateCarritoDto } from './dto/carrito-update.dto';
 import { CarritoDto } from './dto/carrito.dto';
 import { CreateVentaDto } from './dto/create-venta.dto';
 import { Carrito } from './entity/carrito.entity';
@@ -22,6 +25,7 @@ import { VentaMapper } from './mapper/venta.mapper';
 
 @Injectable()
 export class CarritoService {
+  private readonly logger = new Logger(CarritoService.name);
   constructor(
     @InjectRepository(Carrito)
     private carritoRepository: Repository<Carrito>,
@@ -38,54 +42,72 @@ export class CarritoService {
 
   async getAllCarritos(): Promise<CarritoDto[]> {
     const resultado: Carrito[] = await this.carritoRepository.find();
-
     return CarritoMapper.toDtoList(resultado);
   }
 
   async getCarritoById(id: number): Promise<CarritoDto> {
+    this.logger.debug('Buscando carrito por su ID');
     const resultado: Carrito = await this.carritoRepository.findOne({
       where: {
         id: id,
       },
     });
+
     if (!resultado) {
-      throw new BadRequestException();
+      this.logger.fatal('no se encontro el carrito');
+      throw new NotFoundException();
     }
+    this.logger.log('carrito encontrado');
     return CarritoMapper.toDto(resultado);
   }
 
-  async create(createCarritoDto: CreateCarritoDto): Promise<CarritoDto> {
+  /*async create(createCarritoDto: CreateCarritoDto): Promise<CarritoDto> {
+    this.logger.log('creando carrito en la BD');
     const entidad: Carrito = CarritoMapper.toEntity(createCarritoDto);
+    this.logger.log('guardando carrito en la BD');
     const resultado: Carrito = await this.carritoRepository.save(entidad);
 
     return CarritoMapper.toDto(resultado);
   }
+  */
   async remove(id: number): Promise<CarritoDto> {
+    this.logger.debug('buscando carrito para eliminar');
+
     const encontrado: Carrito = await this.carritoRepository.findOne({
       where: {
         id: id,
       },
     });
     if (!encontrado) {
-      throw Error('No se encontró el carrito');
+      this.logger.error('no se encontro el carrito');
+
+      throw Error();
     }
+
+    this.logger.log('carrito eliminado de la BD');
     await this.carritoRepository.remove(encontrado);
     return CarritoMapper.toDto(encontrado);
   }
 
-  async update(
+  /*async update(
     id: number,
     updateCarritoDto: UpdateCarritoDto,
     user: Usuario,
   ): Promise<CarritoDto> {
+    this.logger.log('buscando carrito por ID');
+
     const encontrado: Carrito = await this.carritoRepository.findOne({
       where: {
         id: id,
       },
     });
     if (!encontrado) {
-      throw Error('No se encontró el carrito');
+      this.logger.log('no se encontro el carrito por su ID');
+
+      throw Error();
     }
+    this.logger.log('verificando las habilidades del usuario');
+
     this.abilityFactory.checkAbility(user, Action.Update, encontrado);
 
     if (updateCarritoDto.estado) {
@@ -101,11 +123,16 @@ export class CarritoService {
     const resultado: Carrito = await this.carritoRepository.save(encontrado);
     return CarritoMapper.toDto(resultado);
   }
+  */
 
   async getCarritoContactoById(
     id: number,
     user: Usuario,
   ): Promise<ContactoDto> {
+    this.logger.debug(
+      'buscando que el carrito sea creado por su mismo contacto',
+    );
+
     const resultado: Carrito = await this.carritoRepository.findOne({
       where: {
         id: id,
@@ -116,9 +143,13 @@ export class CarritoService {
     });
 
     if (!resultado) {
+      this.logger.fatal('no coinciden o no existe el carrito con ese contacto');
       throw new BadRequestException();
     }
-    this.abilityFactory.checkAbility(user, Action.Read, resultado.contacto); // en caso de que se revise que el usuario modifique su carrito o quiera verlo, se debe crear la funcion dentro del service, por que primero se revisa si esta en la BD, Como en el caso del UPDATE
+    this.logger.debug('verificando que el carrito sea de su contacto ');
+
+    this.abilityFactory.checkAbility(user, Action.Read, resultado.contacto); // en caso de que se revise que el usuario modifique su carrito o quiera verlo, se debe crear la funcion dentro del service, por que primero se revisa si esta en la BD
+    this.logger.log('mostrando el carrito ');
 
     return ContactoMapper.toDto(resultado.contacto);
   }
@@ -133,9 +164,12 @@ export class CarritoService {
         depto_casa: createVentaDto.contacto.depto_casa,
         comuna_id: createVentaDto.contacto.comuna_id,
       };
+      this.logger.debug('se crea direccion ');
       const entity = DireccionMapper.toEntity(direccion);
       newDireccion = await this.direccionRepository.save(entity);
     } catch (error) {
+      this.logger.fatal('no se pudo crear la direccion');
+
       throw new BadRequestException();
     }
 
@@ -151,14 +185,20 @@ export class CarritoService {
         apellido_paterno: apellidos ? apellidos[0] : '', // si no viene deja los espacios en blanco
         apellido_materno: apellidos ? apellidos[1] : '', // same
       };
+      this.logger.debug('creando contacto');
 
       const entity = ContactoMapper.toEntityCarrito(contacto);
       newContacto = await this.contactoRepository.save(entity);
     } catch (error) {
+      this.logger.log('no se pudo crear el contacto');
       throw new BadRequestException(error);
     }
     try {
       createVentaDto.productos.map(async ({ id, cantidad }) => {
+        this.logger.debug(
+          'buscando producto por su ID y descontandolo del stock',
+        );
+
         const buscarProducto = await this.productoRepository.findOne({
           where: {
             id,
@@ -168,6 +208,8 @@ export class CarritoService {
         await this.productoRepository.save(buscarProducto);
       });
     } catch (error) {
+      this.logger.log('no se encontro el producto');
+
       throw new BadRequestException();
     }
 
@@ -181,9 +223,13 @@ export class CarritoService {
         venta_id: resultado.id,
         estado: 'activo',
       };
+      this.logger.debug('creando el nuevo carrito en la BD');
+
       const entity = CarritoMapper.toEntity(carrito);
       newCarrito = await this.carritoRepository.save(entity);
     } catch (error) {
+      this.logger.fatal('no se pudo crear el carrito');
+
       throw new BadRequestException();
     }
 

@@ -4,9 +4,9 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   NotFoundException,
   Param,
-  Patch,
   Post,
   Req,
 } from '@nestjs/common';
@@ -23,14 +23,13 @@ import { Action } from 'src/ability/ability.factory';
 import { ContactoDto } from 'src/contacto/dto/contacto.dto';
 import { Public } from 'src/guards/public.decorator';
 import { CarritoService } from './carrito.service';
-import { CreateCarritoDto } from './dto/carrito-create.dto';
-import { UpdateCarritoDto } from './dto/carrito-update.dto';
 import { CarritoDto } from './dto/carrito.dto';
 import { CreateVentaDto } from './dto/create-venta.dto';
 import { Carrito } from './entity/carrito.entity';
 
 @Controller('carrito')
 export class CarritoController {
+  private readonly logger = new Logger(CarritoController.name);
   constructor(private readonly carritoService: CarritoService) {}
 
   @Public()
@@ -41,6 +40,7 @@ export class CarritoController {
     isArray: true,
   })
   async getAllCarritos(): Promise<CarritoDto[]> {
+    this.logger.log('aca se muestran todos los carritos encontrados');
     return await this.carritoService.getAllCarritos();
   }
 
@@ -51,8 +51,10 @@ export class CarritoController {
   @Public()
   @Get(':id')
   getCarritoById(@Param('id') id: number) {
+    this.logger.log('aca se muestra el carrito por ID');
     return this.carritoService.getCarritoById(id);
   }
+  /*
   @Public()
   @Post()
   @ApiBody({
@@ -66,13 +68,17 @@ export class CarritoController {
   async create(
     @Body() createCarritoDto: CreateCarritoDto,
   ): Promise<CarritoDto> {
+    this.logger.log('aca se crea el carrito ');
     try {
       const resultado = await this.carritoService.create(createCarritoDto);
+      this.logger.log('carrito creado');
       return resultado;
     } catch (error) {
+      this.logger.error('no se puedo crear el carrito');
       throw new BadRequestException(error.message);
     }
   }
+  */
   @ApiHeader({
     name: 'Autorizacion',
     description: 'Token de autorizacion',
@@ -91,7 +97,7 @@ export class CarritoController {
     }
   }
 
-  @Patch(':id')
+  /*@Patch(':id')
   @ApiBody({
     type: UpdateCarritoDto,
     description: 'Datos del carrito a actualizar',
@@ -103,6 +109,8 @@ export class CarritoController {
     @Body() updateCarritoDto: UpdateCarritoDto,
     @Req() req: Request,
   ): Promise<CarritoDto> {
+    this.logger.log('verificando que sea el mismo usuario del carrito');
+
     const user = req['CURRENT_USER'];
     try {
       const resultado = await this.carritoService.update(
@@ -112,9 +120,12 @@ export class CarritoController {
       );
       return resultado;
     } catch (error) {
+      this.logger.warn('no es el mismo usuario del carrito');
+
       throw new NotFoundException(error.message);
     }
   }
+  */
 
   @ApiHeader({
     name: 'Autorizacion',
@@ -126,7 +137,11 @@ export class CarritoController {
     @Param('id') id: number,
     @Req() req: Request,
   ): Promise<ContactoDto> {
+    this.logger.log(
+      'aca se muestra el id del carrito y su contacto(creador de carrito)',
+    );
     const user = req['CURRENT_USER'];
+
     return await this.carritoService.getCarritoContactoById(id, user);
   }
 
@@ -141,10 +156,13 @@ export class CarritoController {
     type: CreateVentaDto,
   })
   async createVenta(@Body() createVentaDto: CreateVentaDto): Promise<number> {
+    this.logger.log('creando carrito/venta');
+
     try {
       const resultado = await this.carritoService.createVenta(createVentaDto);
       return resultado;
     } catch (error) {
+      this.logger.log('no se pudo crear la venta/carrito');
       throw new BadRequestException(error.message);
     }
   }
