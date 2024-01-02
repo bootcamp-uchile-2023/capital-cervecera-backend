@@ -63,9 +63,16 @@ yarn start:dev
 
 
 
-7. Ejemplo de LOGIN.
+7. - Ejemplo de p LOGIN.
    
 ![image](https://github.com/bootcamp-uchile-2023/capital-cervecera-backend/assets/141187853/3ec40785-cd2d-4eae-87f2-c08f5fa820f7)
+
+
+  - Ejemplo de GET de Productos
+
+![image](https://github.com/bootcamp-uchile-2023/capital-cervecera-backend/assets/141187853/d2be16b8-2a4e-44ff-9430-ab07c6d931dd)
+
+
 
 
 ## ✅ Por hacer...
