@@ -63,7 +63,7 @@ yarn start:dev
 
 
 
-7. - Ejemplo de p LOGIN.
+7. - Ejemplo de POST de  LOGIN.
    
 ![image](https://github.com/bootcamp-uchile-2023/capital-cervecera-backend/assets/141187853/3ec40785-cd2d-4eae-87f2-c08f5fa820f7)
 
