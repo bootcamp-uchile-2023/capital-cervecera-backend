@@ -44,15 +44,20 @@ export class CarritoController {
     return await this.carritoService.getAllCarritos();
   }
 
+  @ApiHeader({
+    name: 'Autorizacion',
+    description: 'Token de autorizacion',
+    required: true,
+  })
   @ApiParam({
     name: 'id',
     description: 'identificador del carrito que desea buscar',
   })
-  @Public()
   @Get(':id')
-  getCarritoById(@Param('id') id: number) {
+  getCarritoById(@Param('id') id: number, @Req() req: Request) {
+    const user = req['CURRENT_USER'];
     this.logger.log('aca se muestra el carrito por ID');
-    return this.carritoService.getCarritoById(id);
+    return this.carritoService.getCarritoById(id, user);
   }
   /*
   @Public()
@@ -144,7 +149,11 @@ export class CarritoController {
 
     return await this.carritoService.getCarritoContactoById(id, user);
   }
-
+  @ApiHeader({
+    name: 'Autorizacion',
+    description: 'Token de autorizacion',
+    required: false,
+  })
   @Public()
   @Post('envio')
   @ApiBody({
@@ -155,11 +164,19 @@ export class CarritoController {
     description: 'El carrito se creó correctamente',
     type: CreateVentaDto,
   })
-  async createVenta(@Body() createVentaDto: CreateVentaDto): Promise<number> {
+  async createVenta(
+    @Body() createVentaDto: CreateVentaDto,
+    @Req() req: Request,
+  ): Promise<number> {
+    const user = req['CURRENT_USER'];
+
     this.logger.log('creando carrito/venta');
 
     try {
-      const resultado = await this.carritoService.createVenta(createVentaDto);
+      const resultado = await this.carritoService.createVenta(
+        createVentaDto,
+        user,
+      );
       return resultado;
     } catch (error) {
       this.logger.log('no se pudo crear la venta/carrito');

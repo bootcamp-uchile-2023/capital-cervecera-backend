@@ -5,6 +5,7 @@ import { AbilityModule } from 'src/ability/ability.module';
 import { Contacto } from 'src/contacto/entity/contacto.entity';
 import { Direccion } from 'src/direccion/entity/direccion.entity';
 import { Producto } from 'src/productos/entity/producto.entity';
+import { Usuario } from 'src/usuario/entity/usuario.entity';
 import { CarritoController } from './carrito.controller';
 import { CarritoService } from './carrito.service';
 import { Carrito } from './entity/carrito.entity';
@@ -13,7 +14,14 @@ import { Venta } from './entity/venta.entity';
 @Module({
   imports: [
     AbilityModule,
-    TypeOrmModule.forFeature([Carrito, Venta, Producto, Contacto, Direccion]),
+    TypeOrmModule.forFeature([
+      Carrito,
+      Venta,
+      Producto,
+      Contacto,
+      Direccion,
+      Usuario,
+    ]),
   ],
   controllers: [CarritoController],
   providers: [CarritoService, AbilityFactory],

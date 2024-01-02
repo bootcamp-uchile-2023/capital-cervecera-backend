@@ -61,6 +61,17 @@ export class ProductosService {
           return prod[item] == query[item];
         });
       }
+      if (item === 'a-z' && query[item] === 'true') {
+        filteredProduct = filteredProduct.sort((a, b) =>
+          a.nombre_producto.localeCompare(b.nombre_producto),
+        );
+      }
+
+      if (item === 'z-a' && query[item] === 'true') {
+        filteredProduct = filteredProduct.sort((a, b) =>
+          b.nombre_producto.localeCompare(a.nombre_producto),
+        );
+      }
     });
 
     return filteredProduct;

@@ -40,8 +40,16 @@ export class AbilityFactory {
     if (usuario.isAdmin) {
       can(Action.Manage, 'all'); // el admin puede hacer todo
     } else {
-      can(Action.Update, Carrito, { contacto_id: { $eq: usuario.id } }); // solo el creador de su carrito puede actualizar SU carrito
-      can(Action.Read, Contacto, { id: { $eq: usuario.id } }); // solo el creador de su carrito puede LEER/VER SU carrito
+      can(Action.Create, Carrito);
+      if (usuario.contacto) {
+        can(Action.Update, Carrito, {
+          contacto_id: { $eq: usuario.contacto.id },
+        }); // solo el creador de su carrito puede actualizar SU carrito
+        can(Action.Read, Contacto, { id: { $eq: usuario.contacto.id } }); // solo el creador de su carrito puede LEER/VER SU carrito
+        can(Action.Read, Carrito, {
+          contacto_id: { $eq: usuario.contacto.id },
+        }); // solo el creador de su carrito puede VER SU carrito
+      }
     }
 
     return build({

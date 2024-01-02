@@ -34,6 +34,18 @@ export class ProductosController {
   constructor(private readonly productosService: ProductosService) {}
 
   @ApiQuery({
+    name: 'z-a',
+    description: 'buscar nombre en descendente',
+    type: Boolean,
+    required: false,
+  })
+  @ApiQuery({
+    name: 'a-z',
+    description: 'buscar nombre en ascendente',
+    type: Boolean,
+    required: false,
+  })
+  @ApiQuery({
     name: 'precio_maximo',
     description:
       'Ingresar precio maximo de venta del producto que desea buscar',

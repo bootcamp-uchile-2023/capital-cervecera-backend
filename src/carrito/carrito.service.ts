@@ -38,6 +38,8 @@ export class CarritoService {
     private contactoRepository: Repository<Contacto>,
     @InjectRepository(Direccion)
     private direccionRepository: Repository<Direccion>,
+    @InjectRepository(Usuario)
+    private usuarioRepository: Repository<Usuario>,
   ) {}
 
   async getAllCarritos(): Promise<CarritoDto[]> {
@@ -45,19 +47,24 @@ export class CarritoService {
     return CarritoMapper.toDtoList(resultado);
   }
 
-  async getCarritoById(id: number): Promise<CarritoDto> {
+  async getCarritoById(id: number, user: Usuario): Promise<CarritoDto> {
     this.logger.debug('Buscando carrito por su ID');
     const resultado: Carrito = await this.carritoRepository.findOne({
       where: {
         id: id,
       },
+      relations: {
+        contacto: true,
+      },
     });
+    const fullUser = await this.getFullUser(user);
 
     if (!resultado) {
       this.logger.fatal('no se encontro el carrito');
       throw new NotFoundException();
     }
     this.logger.log('carrito encontrado');
+    this.abilityFactory.checkAbility(fullUser, Action.Read, resultado.contacto);
     return CarritoMapper.toDto(resultado);
   }
 
@@ -86,6 +93,7 @@ export class CarritoService {
 
     this.logger.log('carrito eliminado de la BD');
     await this.carritoRepository.remove(encontrado);
+
     return CarritoMapper.toDto(encontrado);
   }
 
@@ -154,7 +162,10 @@ export class CarritoService {
     return ContactoMapper.toDto(resultado.contacto);
   }
 
-  async createVenta(createVentaDto: CreateVentaDto): Promise<number> {
+  async createVenta(
+    createVentaDto: CreateVentaDto,
+    user: Usuario,
+  ): Promise<number> {
     let newDireccion: Direccion;
     let newContacto: Contacto;
     let newCarrito: Carrito;
@@ -175,6 +186,7 @@ export class CarritoService {
 
     try {
       const apellidos = createVentaDto.contacto.apellidos.split(' ');
+
       const contacto = {
         direccion_id: newDireccion.id,
         rut: createVentaDto.contacto.rut,
@@ -182,12 +194,14 @@ export class CarritoService {
         is_novedades: createVentaDto.contacto.is_novedades,
         email: createVentaDto.contacto.email,
         telefono: createVentaDto.contacto.telefono,
+        usuario_id: user ? user.id : null, // en caso de venir un usuario, se le asigna al contacto y si no, null // le pondra el ['CURRENT_USER'] al usuario que creo en la BD
         apellido_paterno: apellidos ? apellidos[0] : '', // si no viene deja los espacios en blanco
         apellido_materno: apellidos ? apellidos[1] : '', // same
       };
       this.logger.debug('creando contacto');
 
       const entity = ContactoMapper.toEntityCarrito(contacto);
+
       newContacto = await this.contactoRepository.save(entity);
     } catch (error) {
       this.logger.log('no se pudo crear el contacto');
@@ -234,5 +248,22 @@ export class CarritoService {
     }
 
     return newCarrito.id;
+  }
+
+  async getFullUser(user: any) {
+    // busca el usuario en la BD con la relacion de su contacto
+    const resultado: Usuario = await this.usuarioRepository.findOne({
+      where: {
+        id: user.id,
+      },
+      relations: {
+        contacto: true,
+      },
+    });
+    if (!resultado || !resultado.contacto) {
+      this.logger.error('no se encontro un usuario o un contacto');
+      throw new BadRequestException();
+    }
+    return resultado;
   }
 }
