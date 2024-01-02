@@ -56,7 +56,7 @@ export class ContactoMapper {
     entidad.is_novedades = dto.is_novedades;
     entidad.email = dto.email;
     entidad.telefono = dto.telefono;
-
+    entidad.usuario_id = dto.usuario_id;
     return entidad;
   }
 

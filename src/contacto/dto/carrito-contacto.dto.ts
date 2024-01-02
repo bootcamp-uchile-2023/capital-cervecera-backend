@@ -33,4 +33,8 @@ export class ContactoCarritoDto {
   @ApiProperty()
   @IsBoolean({ message: 'el atributo debe ser un boolean' })
   readonly is_novedades: boolean;
+
+  @ApiProperty()
+  @IsInt({ message: 'el atributo debe ser un int' })
+  readonly usuario_id: number;
 }
