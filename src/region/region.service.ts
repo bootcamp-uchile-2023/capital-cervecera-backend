@@ -1,13 +1,11 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { RegionMapper } from './mapper/region.mapper';
-
 import { CreateRegionDto } from './dto/region-create.dto';
 import { UpdateRegionDto } from './dto/region-update.dto';
 import { RegionDto } from './dto/region.dto';
 import { Region } from './entity/region.entity';
+import { RegionMapper } from './mapper/region.mapper';
 
 @Injectable()
 export class RegionService {
@@ -40,6 +38,7 @@ export class RegionService {
 
     return RegionMapper.toDto(resultado);
   }
+
   async remove(id: number): Promise<RegionDto> {
     const encontrado: Region = await this.regionRepository.findOne({
       where: {

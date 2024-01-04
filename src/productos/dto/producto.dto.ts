@@ -48,11 +48,11 @@ export class ProductoDto {
   casa_cervecera: string;
 
   @ApiProperty()
-  @IsString({ message: 'el atributo debe ser un string' }) //prox base64
+  @IsString({ message: 'el atributo debe ser un string' })
   base64_imagen_card: string;
 
   @ApiProperty()
-  @IsString({ message: 'el atributo debe ser un string' }) // prox base64
+  @IsString({ message: 'el atributo debe ser un string' })
   base64_imagen_detalle: string;
 
   @ApiProperty()

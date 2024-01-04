@@ -45,7 +45,7 @@ export class ContactoDto {
   apellido_paterno: string;
 
   @ApiProperty()
-  @IsString({ message: 'el atributo debe ser un string' })
+  @IsString()
   base64_imagen: string;
 
   @ApiProperty()

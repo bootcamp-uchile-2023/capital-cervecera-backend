@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDate, IsInt, IsString } from 'class-validator';
-//import { Tipo } from '../entity/producto.entity';
 
 export class CarritoDto {
   @ApiProperty()

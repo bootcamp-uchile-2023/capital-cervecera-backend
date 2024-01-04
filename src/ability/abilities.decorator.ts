@@ -3,6 +3,7 @@ import { SetMetadata } from '@nestjs/common';
 import { Action, Subjects } from './ability.factory';
 
 export interface RequiredRule {
+  // reglas de la interface
   action: Action;
   subject: Subjects;
 }

@@ -1,9 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-
 import { ContactoProducto } from 'src/contacto_producto/entity/contacto_producto.entity';
+import { Repository } from 'typeorm';
 import { CreateContactoDto } from './dto/contacto-create.dto';
 import { UpdateContactoDto } from './dto/contacto-update.dto';
 import { ContactoDto } from './dto/contacto.dto';
@@ -62,6 +60,7 @@ export class ContactoService {
 
     return ContactoMapper.toDto(resultadoWithRelation);
   }
+
   async remove(id: number): Promise<ContactoDto> {
     const encontrado: Contacto = await this.contactoRepository.findOne({
       where: {

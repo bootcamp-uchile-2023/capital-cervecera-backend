@@ -12,8 +12,8 @@ import { UsuarioService } from './usuario.service';
     TypeOrmModule.forFeature([Usuario]),
     JwtModule.register({
       global: true,
-      secret: 'capitalcervecera1234',
-      signOptions: { expiresIn: '5000s' }, // TIEMPO DE EXPIRACION
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '5000s' }, // TIEMPO DE EXPIRACION DEL TOKEN
     }),
   ],
   controllers: [UsuarioController],

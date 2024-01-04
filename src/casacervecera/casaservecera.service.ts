@@ -1,5 +1,4 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCasaCerveceraDto } from './dto/casacervecera-create.dto';
@@ -44,7 +43,7 @@ export class CasaCerveceraService {
     });
 
     if (existe) {
-      throw Error('Ya existe una casa cervecera  con ese nombre');
+      throw Error('Ya existe una casa cervecera con ese nombre');
     }
     const entidad: Casa_cervecera = CasaCerveceraMapper.toEntity(
       createCasaCerveceraDto,
@@ -56,6 +55,7 @@ export class CasaCerveceraService {
 
     return CasaCerveceraMapper.toDto(resultado);
   }
+
   async remove(id: number): Promise<CasaCerveceraDto> {
     const encontrado: Casa_cervecera =
       await this.casacerveceraRepository.findOne({

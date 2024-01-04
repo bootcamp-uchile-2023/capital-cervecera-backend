@@ -1,13 +1,11 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ComunaMapper } from './mapper/comuna.mapper';
-
 import { CreateComunaDto } from './dto/comuna-create.dto';
 import { UpdateComunaDto } from './dto/comuna-update.dto';
 import { ComunaDto } from './dto/comuna.dto';
 import { Comuna } from './entity/comuna.entity';
+import { ComunaMapper } from './mapper/comuna.mapper';
 
 @Injectable()
 export class ComunaService {
@@ -54,6 +52,7 @@ export class ComunaService {
     });
     return ComunaMapper.toDto(resultadoWithRelation);
   }
+
   async remove(id: number): Promise<ComunaDto> {
     const encontrado: Comuna = await this.comunaRepository.findOne({
       where: {

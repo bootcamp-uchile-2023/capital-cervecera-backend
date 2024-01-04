@@ -8,7 +8,6 @@ export class UsuarioMapper {
 
     dto.password = entidad.password;
     dto.username = entidad.username;
-
     dto.isAdmin = entidad.isAdmin;
 
     return dto;

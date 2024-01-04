@@ -155,8 +155,8 @@ export class CarritoService {
       throw new BadRequestException();
     }
     this.logger.debug('verificando que el carrito sea de su contacto ');
-
-    this.abilityFactory.checkAbility(user, Action.Read, resultado.contacto); // en caso de que se revise que el usuario modifique su carrito o quiera verlo, se debe crear la funcion dentro del service, por que primero se revisa si esta en la BD
+    const fullUser = await this.getFullUser(user);
+    this.abilityFactory.checkAbility(fullUser, Action.Read, resultado.contacto); // en caso de que se revise que el usuario modifique su carrito o quiera verlo, se debe crear la funcion dentro del service, por que primero se revisa si esta en la BD
     this.logger.log('mostrando el carrito ');
 
     return ContactoMapper.toDto(resultado.contacto);
