@@ -16,9 +16,9 @@ import { Usuario } from './entity/usuario.entity';
 export class UsuarioService {
   private readonly logger = new Logger(UsuarioService.name);
 
-  iv = Buffer.from('12772e44c172a6129f39cc89cc10aa4b', 'hex');
+  iv = Buffer.from(process.env.PASSWORD_CRYPT_IV, 'hex');
   modo = 'AES-256-CBC';
-  password = 'cd1cb88ba31ce028d4816bfc88630771';
+  password = process.env.PASSWORD_CRYPT;
   constructor(
     @InjectRepository(Usuario)
     private usuarioRepository: Repository<Usuario>,

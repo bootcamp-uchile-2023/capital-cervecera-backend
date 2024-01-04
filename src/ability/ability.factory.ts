@@ -12,7 +12,7 @@ import { Contacto } from 'src/contacto/entity/contacto.entity';
 import { Producto } from 'src/productos/entity/producto.entity';
 import { Usuario } from 'src/usuario/entity/usuario.entity';
 
-export enum Action {
+export enum Action { // acciones para que puedan realizar las siguientes cosas; el manage puede todo
   Manage = 'manage',
   Create = 'create',
   Read = 'read',

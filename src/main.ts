@@ -1,13 +1,8 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AppModule } from './app.module';
-
-import { ProductosModule } from './productos/productos.module';
-
-import { UsuarioModule } from './usuario/usuario.module';
-
-import { ValidationPipe } from '@nestjs/common';
 import { json, urlencoded } from 'express';
+import { AppModule } from './app.module';
 import { CarritoModule } from './carrito/carrito.module';
 import { CasaCerveceraModule } from './casacervecera/casacervecera.module';
 import { ComunaModule } from './comuna/comuna.module';
@@ -15,7 +10,9 @@ import { ContactoModule } from './contacto/contacto.module';
 import { ContactoProductoModule } from './contacto_producto/contacto_producto.module';
 import { DireccionModule } from './direccion/direccion.module';
 import { PackModule } from './pack/pack.module';
+import { ProductosModule } from './productos/productos.module';
 import { RegionModule } from './region/region.module';
+import { UsuarioModule } from './usuario/usuario.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

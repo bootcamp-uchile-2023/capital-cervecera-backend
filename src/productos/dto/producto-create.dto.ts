@@ -1,13 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsInt, IsString } from 'class-validator';
-//import { Tipo } from '../entity/producto.entity';
 
 export class CreateProductoDto {
   @ApiProperty({ example: 1 })
   @IsInt({ message: 'el atributo debe ser un number ' })
   readonly casa_cervecera_id: number;
 
-  @ApiProperty({ example: 'Lager' }) // por los producto que tengo en enum por ahora
+  @ApiProperty({ example: 'Lager' })
   @IsString()
   readonly tipo: string;
 

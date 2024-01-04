@@ -1,20 +1,18 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ProductosModule } from './productos/productos.module';
-
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { CarritoModule } from './carrito/carrito.module';
-import { Carrito } from './carrito/entity/carrito.entity';
-import { CasaCerveceraModule } from './casacervecera/casacervecera.module';
-import { Casa_cervecera } from './casacervecera/entity/casacervecera.entity';
-
+import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AbilitiesGuard } from './ability/abilities.guard';
 import { AbilityModule } from './ability/ability.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { CarritoModule } from './carrito/carrito.module';
+import { Carrito } from './carrito/entity/carrito.entity';
 import { Venta } from './carrito/entity/venta.entity';
+import { CasaCerveceraModule } from './casacervecera/casacervecera.module';
+import { Casa_cervecera } from './casacervecera/entity/casacervecera.entity';
 import { ComunaModule } from './comuna/comuna.module';
 import { Comuna } from './comuna/entity/comuna.entity';
 import { ContactoModule } from './contacto/contacto.module';
@@ -27,6 +25,7 @@ import { JWTGuard } from './guards/jwt.guard';
 import { Pack } from './pack/entity/pack.entity';
 import { PackModule } from './pack/pack.module';
 import { Producto } from './productos/entity/producto.entity';
+import { ProductosModule } from './productos/productos.module';
 import { Region } from './region/entity/region.entity';
 import { RegionModule } from './region/region.module';
 import { Usuario } from './usuario/entity/usuario.entity';
@@ -34,6 +33,9 @@ import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+    }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'assets'),
       serveStaticOptions: {
@@ -45,15 +47,14 @@ import { UsuarioModule } from './usuario/usuario.module';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 33060,
-      username: 'root',
-      password: 'taller',
-      database: 'CAPITAL',
+      port: +process.env.DB_PORT,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       entities: [
         Producto,
         Carrito,
         Casa_cervecera,
-
         Contacto,
         Usuario,
         Region,
@@ -67,7 +68,6 @@ import { UsuarioModule } from './usuario/usuario.module';
     ProductosModule,
     CarritoModule,
     CasaCerveceraModule,
-
     ContactoModule,
     UsuarioModule,
     RegionModule,

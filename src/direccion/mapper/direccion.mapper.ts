@@ -7,7 +7,6 @@ export class DireccionMapper {
     const dto = new DireccionDto();
     dto.id = entidad.id;
     dto.direccion = entidad.direccion;
-
     dto.depto_casa = entidad.depto_casa;
     dto.comuna = entidad.comuna;
 
@@ -20,9 +19,7 @@ export class DireccionMapper {
 
   static toEntity(dto: CreateDireccionDto): Direccion {
     const entidad = new Direccion();
-
     entidad.direccion = dto.direccion;
-
     entidad.depto_casa = dto.depto_casa;
     entidad.comuna_id = dto.comuna_id;
 

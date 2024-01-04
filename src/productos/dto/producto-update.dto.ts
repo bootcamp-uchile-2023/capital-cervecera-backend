@@ -52,14 +52,14 @@ export class UpdateProductoDto {
   casa_cervecera_id: number;
 
   @ApiProperty({
-    example: 'aqui va un base s e s e n t a y  c u a t r o ',
+    example: 'aqui va un base64',
     description: 'b a s e64 de la imagen',
   })
   @IsString()
   base64_imagen_card: string;
 
   @ApiProperty({
-    example: 'aqui va un base s e s e n t a y  c u a t r o ',
+    example: 'aqui va un base64 ',
     description: 'base64 del detalle la imagen',
   })
   @IsString()
