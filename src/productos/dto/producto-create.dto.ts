@@ -23,12 +23,12 @@ export class CreateProductoDto {
   readonly nombre_producto: string;
 
   @ApiProperty()
-  @IsInt({ message: 'el atributo debe ser un number ' })
-  readonly precio_compra: number;
+  @IsInt({ message: 'el atributo debe ser un numbeR ' })
+  readonly precio_venta: number;
 
   @ApiProperty()
-  @IsInt({ message: 'el atributo debe ser un number ' })
-  readonly precio_venta: number;
+  @IsInt()
+  precio_descuento: number;
 
   @ApiProperty()
   @IsBoolean()
@@ -57,10 +57,6 @@ export class CreateProductoDto {
   @ApiProperty()
   @IsInt()
   stock: number;
-
-  @ApiProperty()
-  @IsInt()
-  precio_descuento: number;
 
   @ApiProperty()
   @IsString()

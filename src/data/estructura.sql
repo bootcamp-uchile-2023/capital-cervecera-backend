@@ -44,14 +44,14 @@ CREATE TABLE producto (
 	nombre_producto VARCHAR(255),
 	precio_venta INT,
 	is_recomendado BOOLEAN DEFAULT FALSE,
-    base64_imagen_card LONGTEXT,
-    base64_imagen_detalle LONGTEXT,
-    is_promo boolean,
-    volumen_cc INT,
-    detalle TEXT,
-    stock INT,
-    precio_descuento INT,
-    sku VARCHAR(255),
+  base64_imagen_card LONGTEXT,
+  base64_imagen_detalle LONGTEXT,
+  is_promo boolean,
+  volumen_cc INT,
+  detalle TEXT,
+  stock INT,
+  precio_descuento INT,
+  sku VARCHAR(255),
 	FOREIGN KEY (casa_cervecera_id) REFERENCES casa_cervecera(id)
 );
 
