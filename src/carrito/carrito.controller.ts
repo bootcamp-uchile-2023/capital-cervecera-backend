@@ -32,7 +32,11 @@ export class CarritoController {
   private readonly logger = new Logger(CarritoController.name);
   constructor(private readonly carritoService: CarritoService) {}
 
-  @Public()
+  @ApiHeader({
+    name: 'Autorizacion',
+    description: 'Token de autorizacion',
+    required: true,
+  })
   @Get()
   @ApiOkResponse({
     description: 'carritos encontrados',
