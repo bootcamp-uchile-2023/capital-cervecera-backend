@@ -2,8 +2,10 @@
 
 # E-Commerce Capital Cervecera.
 
-
+<div style="display: flex; justify-content=center;">
 <img src="https://github.com/bootcamp-uchile-2023/capital-cervecera-backend/assets/141187853/7b8d9ae9-6405-421e-87d4-3077e84f20ac" width="200" height="200">
+   
+</div>
 
 
 
