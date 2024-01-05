@@ -1,5 +1,8 @@
 # E-Commerce Capital Cervecera.
 
+![image](https://github.com/bootcamp-uchile-2023/capital-cervecera-backend/assets/141187853/32b05abe-e838-4935-9b78-8b534533916c)
+
+
 #### Api REST de venta de cerveza artesanal, donde se puede comprar, comentar y recomendar productos, entre otros.  
 
 ## 🛠️ Stack
