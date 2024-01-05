@@ -73,7 +73,8 @@ yarn start:dev
 
   - Ejemplo de GET de Productos
 
-![image](https://github.com/bootcamp-uchile-2023/capital-cervecera-backend/assets/141187853/e2902024-2bdd-4a0c-b7f9-b6b8782c9c66)
+![image](https://github.com/bootcamp-uchile-2023/capital-cervecera-backend/assets/141187853/f6c2b197-a0ab-4094-a3de-f7155eeaf6f1)
+
 
 
 
