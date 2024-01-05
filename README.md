@@ -1,73 +1,84 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# E-Commerce Capital Cervecera.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+#### Api REST de venta de cerveza artesanal, donde se puede comprar, comentar y recomendar productos, entre otros.  
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🛠️ Stack
 
-## Description
+- [**Nest.js**](https://nestjs.com/) - Framework backend.
+- [**Typescript**](https://www.typescriptlang.org/) - JavaScript con sintaxis para los tipos.
+- [**Docker**](https://www.docker.com/products/docker-desktop/) - Creación de contenedores e imagenes.
+- [**MySQL**](https://www.mysql.com/products/workbench/) - Herramienta visual de diseño, desarrollo y administración de bases de datos MySQL.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🚀 Para empezar
 
-## Installation
-
+1. Iniciar Docker.
 
 ```bash
-$ yarn install
+docker run --hostname=4d1d4f6f1c9b --env=MYSQL_ROOT_PASSWORD=password --env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=GOSU_VERSION=1.16 --env=MYSQL_MAJOR=innovation --env=MYSQL_VERSION=8.1.0-1.el8 --env=MYSQL_SHELL_VERSION=8.0.34-1.el8 --volume=/var/lib/mysql -p 33060:3306 --restart=no --runtime=runc -d mysql
 ```
 
-## Running the app
+2. mySQL Workbench.
 
 ```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+-Conectarse al puerto 33060
+-Ejecutar la estructura.sql que se encuentra en la ruta src/data/estructura.sql. ( contiene tabla, relaciones y seeds basicos).
 ```
-
-## Test
+   
+3. [Fork]() o clonar este repository.
 
 ```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+git clone git@github.com:bootcamp-uchile-2023/capital-cervecera-backend.git
 ```
 
-## Support
+4. Instalar las dependencias:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+# Instalar yarn globalmente en caso de que no lo tengas:
+npm install -g yarn
 
-## Stay in touch
+# Instalar dependencias:
+yarn install
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+
+```
+
+5. Correr area de desarrollo:
+
+```bash
+
+# Run with yarn:
+yarn start:dev
+```
+
+6. Abre [**http://localhost:3000**](http://localhost:3000/) con tu navegador para ver los resultados 🚀
+
+
+## 🧞 Commands
+
+|     | Command          | Action                                        |
+| :-- | :--------------- | :-------------------------------------------- |
+| ⚙️  | `dev` or `start` | Starts local dev server at `localhost:3000`.  |
+| ⚙️  | `build`          | Build your production site to `./dist/`.      |
+| ⚙️  | `preview`        | Preview your build locally, before deploying. |
+
+
+
+7. - Ejemplo de POST de  LOGIN.
+   
+![image](https://github.com/bootcamp-uchile-2023/capital-cervecera-backend/assets/141187853/3ec40785-cd2d-4eae-87f2-c08f5fa820f7)
+
+
+  - Ejemplo de GET de Productos
+
+![image](https://github.com/bootcamp-uchile-2023/capital-cervecera-backend/assets/141187853/d2be16b8-2a4e-44ff-9430-ab07c6d931dd)
+
+
+
+
+## ✅ Por hacer...
+
+- [ ] Terminar servicios en algunos endpoints
+
 
 ## License
 
