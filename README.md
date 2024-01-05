@@ -1,6 +1,5 @@
 ![logo-capital-cervecera (2)](https://github.com/bootcamp-uchile-2023/capital-cervecera-backend/assets/141187853/a20d2d6b-8d44-43ba-bb5d-6250034a0f61)# E-Commerce Capital Cervecera.
 
-![image](https://github.com/bootcamp-uchile-2023/capital-cervecera-backend/assets/141187853/32b05abe-e838-4935-9b78-8b534533916c)
 ![Uploading logo-capital-cervecera (2)<?xml version="1.0" encoding="UTF-8"?>
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
   <defs>
