@@ -17,8 +17,7 @@ CREATE TABLE comuna (
 
 CREATE TABLE direccion (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    direccion VARCHAR(255) NOT NULL,
-    numero VARCHAR(255) NOT NULL,
+    direccion VARCHAR(255) ,
     depto_casa VARCHAR(255),
     comuna_id INT,
     FOREIGN KEY (comuna_id) REFERENCES comuna(id)
@@ -28,7 +27,6 @@ CREATE TABLE usuario (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
   isAdmin BOOLEAN DEFAULT FALSE
 );
 
@@ -46,8 +44,8 @@ CREATE TABLE producto (
 	nombre_producto VARCHAR(255),
 	precio_venta INT,
 	is_recomendado BOOLEAN DEFAULT FALSE,
-    base64_imagen_card VARCHAR (255),
-    base64_imagen_detalle VARCHAR (255),
+    base64_imagen_card LONGTEXT,
+    base64_imagen_detalle LONGTEXT,
     is_promo boolean,
     volumen_cc INT,
     detalle TEXT,
@@ -59,34 +57,38 @@ CREATE TABLE producto (
 
 CREATE TABLE contacto (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  usuario_id INT NOT NULL,
-  direccion_id INT NOT NULL,
+  usuario_id INT ,
+  direccion_id INT ,
   rut VARCHAR(12) NOT NULL,
   nombre VARCHAR(255) NOT NULL,
   esta_atento BOOLEAN DEFAULT FALSE,
-  apellido_materno VARCHAR(255) NOT NULL,
-  apellido_paterno VARCHAR(255) NOT NULL,
-  base64_imagen VARCHAR (255),
+  email VARCHAR(255),
+  telefono VARCHAR(255),
+  apellido_materno VARCHAR(255),
+  apellido_paterno VARCHAR(255) ,
+  base64_imagen LONGTEXT,
+  is_novedades BOOLEAN DEFAULT FALSE,
   FOREIGN KEY (usuario_id) REFERENCES usuario(id),
   FOREIGN KEY (direccion_id) REFERENCES direccion(id)
 );
 
+
+CREATE TABLE venta (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  tipo VARCHAR(255) NOT NULL,
+  monto INT,
+  forma_pago VARCHAR(255),
+  total INT
+  );
+
 CREATE TABLE carrito (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	total INT,
-	sub_total INT,
+    venta_id INT NOT NULL,
 	contacto_id INT NOT NULL,
 	estado ENUM('Vacio', 'Activo', 'Abandonado', 'Completado', 'Eliminado'),
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (contacto_id) REFERENCES contacto(id)
-);
-
-CREATE TABLE contacto (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-	email VARCHAR(255) NOT NULL,
-	telefono VARCHAR(255) NOT NULL,
-	contacto_id INT,
-	FOREIGN KEY (contacto_id) REFERENCES contacto(id)
+    FOREIGN KEY (contacto_id) REFERENCES contacto(id),
+    FOREIGN KEY (venta_id) REFERENCES venta(id)
 );
 
 
@@ -119,6 +121,7 @@ CREATE TABLE `contacto_producto` (
   `estrellas` INT,
   PRIMARY KEY (`contacto_id`, `producto_id`)
 );
+
 INSERT INTO region (nombre) VALUES ('Región Metropolitana'), ('Región de Valparaíso'), ('Región del Biobío');
 
 INSERT INTO comuna (nombre, region_id) VALUES
@@ -129,17 +132,17 @@ INSERT INTO comuna (nombre, region_id) VALUES
 ('Concepción', 3),
 ('Talcahuano', 3);
 
-INSERT INTO direccion (direccion, numero, depto_casa, comuna_id) VALUES
-('Calle A', '123', '1A', 1),
-('Calle B', '456', '2B', 2),
-('Calle C', '789', NULL, 3);
+INSERT INTO direccion (direccion,  depto_casa, comuna_id) VALUES
+('Calle A', '1A', 1),
+('Calle B', '2B', 2),
+('Calle C', NULL, 3);
 
-INSERT INTO usuario (username, password, email, isAdmin) VALUES ('Cris', '29e823e2fc4491934dafe0a9e2ec95f0', 'cristian@gmail.com',true), ('Lucho', '29e823e2fc4491934dafe0a9e2ec95f0','luis@gmail.com',true), ('TurboAle', '29e823e2fc4491934dafe0a9e2ec95f0','Alejandra@gmail.com',false);
+INSERT INTO usuario (username, password, isAdmin) VALUES ('Cris', '29e823e2fc4491934dafe0a9e2ec95f0',true), ('Lucho', '29e823e2fc4491934dafe0a9e2ec95f0',true), ('TurboAle', '29e823e2fc4491934dafe0a9e2ec95f0',false);
 
 INSERT INTO casa_cervecera (nombre) VALUES ('Totem'), ('Nothus'),('Mad Charlies'),('Bundor'),('Nebu');
 
 INSERT INTO producto (sku,nombre_producto,casa_cervecera_id, tipo,volumen_cc, amargor_ibu, grado_alcoholico, precio_venta, precio_descuento, is_promo, is_recomendado,stock,detalle) VALUES
-('STO-PORT-750-001','IPL INDIA PALE ALE',1,'Pale Ale',473,'Medio',"7,0% ABV",3000,2800,false,false,1,"India Pale Ale es una versión iinovadora y mejorada de la clásica IPA moderna. Combina todas las características de una IPA, como la intensa carga de lúpulos, pero está fermentada con levadura lager. Esta técnica mejora su tomabilidad y suaviza la percepción de sus 7 grados de alcohol. Refrescante y aromática, esta cerveza se elabora con los mejores lúpulos americanos del mercado, marcando un nuevo estándar en la evolución de las IPAs."),
+('STO-PORT-750-001','IPL INDIA PALE ALE',1,'Pale Ale',473,'Medio',"7,0% ABV",3000,2800,false,false,1,"India Pale Ale es una versión innovadora y mejorada de la clásica IPA moderna. Combina todas las características de una IPA, como la intensa carga de lúpulos, pero está fermentada con levadura lager. Esta técnica mejora su tomabilidad y suaviza la percepción de sus 7 grados de alcohol. Refrescante y aromática, esta cerveza se elabora con los mejores lúpulos americanos del mercado, marcando un nuevo estándar en la evolución de las IPAs."),
 ('STO-PORT-750-002','APA American Pale Ale',1,'Pale Ale',473,'Medio',"5,2% ABV",3000,2800,false,true,1,"La Totem APA o American Pale Ale es una cerveza histórica de la casa cervecera. Se presenta en un atractivo color dorado, ofrece un nivel de amargor medio, perfectamente complementado con sabores que evocan frutas tropicales. Su aroma, de intensidad media, trae a la mente notas frescas de maracuyá y mango, creando una experiencia equilibrada y deliciosamente aromática."),
 ('STO-PORT-750-003','Oatmeal Stout',2,'Stout',470,'Medio',"5,6% ABV",3300,3100,true,false,1,"Un homenaje al perruno compañero que acompaña a los cerveceros de Nothus en sus locuras. Una cerveza de tipo Stout con avena y elegantes toques de café, chocolate y almendras. Muy cremosa, oscura y con tremendo cuerpazo."),
 ('STO-PORT-750-004','Lenga',2,'Lager',470,'Medio',"3,8% ABV",3300,3100,false,false,1,"Esta cerveza especial es el resultado de una colaboración única entre la Universidad Austral de Chile (UACh) y los cerveceros valdivianos. Se destaca por su fermentación con levadura nativa tipo eubayanus, extraída directamente del bosque patagónico. Este elemento distintivo aporta un carácter único a la cerveza, reflejando la riqueza natural de la Patagonia y la innovación en la elaboración cervecera."),
@@ -156,16 +159,14 @@ INSERT INTO producto (sku,nombre_producto,casa_cervecera_id, tipo,volumen_cc, am
 ('STO-PORT-750-0015','Nessie',4,'Experimentales',330,'Bajo',"8,0% ABV",3000,2700,false,false,1,"Esta cerveza de estilo Wee Heavy se distingue por su intenso color marrón rubí. Ofrece un aroma cautivador que combina toffe, toques ahumados y matices de chocolate. En boca, se siente un cuerpo pleno con una ligera sensación alcohólica. Su retrogusto es corto pero complejo, evocando frutos secos. Esta cerveza, de complejidad media, es ideal para aquellos que buscan una bebida con mayor contenido alcohólico.");
 
 
-INSERT INTO contacto (usuario_id, direccion_id, rut, nombre, esta_atento, apellido_materno, apellido_paterno) VALUES
-(1, 1, '12345678-9', 'Cristian', 1, 'Lizama', 'Lavin'),
-(2, 2, '98765432-1', 'Luis', 0, 'Acevedo', 'Acevedo'),
-(3, 3, '18021591-3', 'Alejandra', 1, 'Acevedo', 'Acevedo');
+INSERT INTO contacto (usuario_id, direccion_id, rut, nombre, esta_atento, email, apellido_materno, apellido_paterno,is_novedades,telefono) VALUES
+(1, 1, '12345678-9', 'Cristian', 1,'cr.lizamal@gmail.com', 'Lizama', 'Lavin',true,'+56984790175'),
+(2, 2, '98765432-1', 'Luis', 0,'luis@gmail.com', 'Acevedo', 'Acevedo',false,'+56984790176'),
+(3, 3, '18021591-3', 'Alejandra', 1,'ale@gmail.com', 'Acevedo', 'Acevedo',true,'+56984790177');
 
-INSERT INTO carrito (total, sub_total, contacto_id, estado) VALUES (0, 0, 1, 'Activo'), (0, 0, 2, 'Vacio');
+INSERT INTO venta (tipo,monto,forma_pago, total) VALUES ('normal', 2000  ,'webpay', 2000), ('express', 3000, 'mercadopago', 3000);
 
-INSERT INTO contacto (email, telefono, contacto_id) VALUES
-('contacto1@gmail.com', '12345678', 1),
-('contacto2@gmail.com', '98765432', 2);
+INSERT INTO carrito (contacto_id, estado,venta_id) VALUES ( 1, 'Activo',1), (2, 'Vacio',2);
 
 INSERT INTO carrito_producto (carrito_id, producto_id ) VALUES (1, 1), (1, 2), (2, 3);
 
