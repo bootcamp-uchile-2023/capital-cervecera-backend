@@ -1,6 +1,6 @@
 ![logo-capital-cervecera (2)](https://github.com/bootcamp-uchile-2023/capital-cervecera-backend/assets/141187853/a20d2d6b-8d44-43ba-bb5d-6250034a0f61)# E-Commerce Capital Cervecera.
 
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
 
   <circle class="cls-4" cx="300" cy="300" r="275"/>
   <g id="Group_of_little_stars" data-name="Group of little stars">
