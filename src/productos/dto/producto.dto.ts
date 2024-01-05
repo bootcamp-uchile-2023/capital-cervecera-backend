@@ -33,11 +33,11 @@ export class ProductoDto {
 
   @ApiProperty()
   @IsInt({ message: 'el atributo debe ser un number ' })
-  precio_compra: number;
+  precio_venta: number;
 
   @ApiProperty()
-  @IsInt({ message: 'el atributo debe ser un number ' })
-  precio_venta: number;
+  @IsInt({ message: 'el atributo debe ser un number' })
+  precio_descuento: number;
 
   @ApiProperty()
   @IsBoolean({ message: 'El atributo debe ser un boolean' })
@@ -70,10 +70,6 @@ export class ProductoDto {
   @ApiProperty()
   @IsInt({ message: 'el atributo debe ser un number' })
   stock: number;
-
-  @ApiProperty()
-  @IsInt({ message: 'el atributo debe ser un number' })
-  precio_descuento: number;
 
   @ApiProperty()
   packs: PackDto[];
