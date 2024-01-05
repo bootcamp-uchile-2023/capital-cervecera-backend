@@ -55,6 +55,7 @@ export class UpdateProductoDto {
     example: 'aqui va un base64',
     description: 'b a s e64 de la imagen',
   })
+  @IsOptional()
   @IsString()
   base64_imagen_card: string;
 
@@ -62,6 +63,7 @@ export class UpdateProductoDto {
     example: 'aqui va un base64 ',
     description: 'base64 del detalle la imagen',
   })
+  @IsOptional()
   @IsString()
   base64_imagen_detalle: string;
 
@@ -69,6 +71,7 @@ export class UpdateProductoDto {
     example: true,
     description: 'booleano de si esta en promo o no',
   })
+  @IsOptional()
   @IsBoolean()
   is_promo: boolean;
 
@@ -76,6 +79,7 @@ export class UpdateProductoDto {
     example: 750,
     description: 'cc del producto',
   })
+  @IsOptional()
   @IsInt()
   volumen_cc: number;
 
@@ -83,6 +87,7 @@ export class UpdateProductoDto {
     example: 'este producto es entero de weno',
     description: 'detalle del producto',
   })
+  @IsOptional()
   @IsString()
   detalle: string;
 
@@ -90,6 +95,7 @@ export class UpdateProductoDto {
     example: 100,
     description: 'numero del stock disponible',
   })
+  @IsOptional()
   @IsInt()
   stock: number;
 
@@ -97,6 +103,7 @@ export class UpdateProductoDto {
     example: 10,
     description: 'descuento del producto ',
   })
+  @IsOptional()
   @IsInt()
   precio_descuento: number;
 }
