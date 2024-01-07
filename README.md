@@ -90,8 +90,8 @@ yarn start:dev
 ## ✅ Por hacer...
 
 - [ ] Terminar servicios en algunos endpoints
-
-
+- [ ] Agregar validador de RUT
+- [ ] Solucionar PATCH  de productos
 ## License
 
 Nest is [MIT licensed](LICENSE).
