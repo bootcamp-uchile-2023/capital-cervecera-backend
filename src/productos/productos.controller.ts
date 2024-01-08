@@ -132,7 +132,7 @@ export class ProductosController {
     required: true,
   })
   @Post()
-  @CheckAbilities({ action: Action.Create, subject: Producto })
+  @CheckAbilities({ action: Action.Manage, subject: Producto })
   @ApiBody({
     type: CreateProductoDto,
     description: 'Datos del producto a crear',

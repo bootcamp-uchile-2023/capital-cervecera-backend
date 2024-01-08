@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { validateRut } from 'rutlib';
 import { ContactoProducto } from 'src/contacto_producto/entity/contacto_producto.entity';
 import { Repository } from 'typeorm';
 import { CreateContactoDto } from './dto/contacto-create.dto';
@@ -46,6 +47,9 @@ export class ContactoService {
   }
 
   async create(createContactoDto: CreateContactoDto): Promise<ContactoDto> {
+    if (!validateRut(createContactoDto.rut)) {
+      throw Error('rut no valido');
+    }
     const entidad: Contacto = ContactoMapper.toEntity(createContactoDto);
     const resultado: Contacto = await this.contactoRepository.save(entidad);
     const resultadoWithRelation = await this.contactoRepository.findOne({
