@@ -38,6 +38,7 @@ export class CarritoController {
     required: true,
   })
   @Get()
+  @CheckAbilities({ action: Action.Read, subject: Carrito })
   @ApiOkResponse({
     description: 'carritos encontrados',
     type: CarritoDto,

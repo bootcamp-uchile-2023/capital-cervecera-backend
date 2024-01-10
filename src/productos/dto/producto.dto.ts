@@ -45,7 +45,7 @@ export class ProductoDto {
 
   @ApiProperty()
   @IsString()
-  casa_cervecera: string;
+  casa_cervecera_id: number;
 
   @ApiProperty()
   @IsString({ message: 'el atributo debe ser un string' })

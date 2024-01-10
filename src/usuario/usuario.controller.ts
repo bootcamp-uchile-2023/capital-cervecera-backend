@@ -49,13 +49,17 @@ export class UsuarioController {
   async getAllUsuarios(): Promise<UsuarioDto[]> {
     return await this.usuarioService.getAllUsuarios();
   }
-
-  @Public()
+  @ApiHeader({
+    name: 'Autorizacion',
+    description: 'Token de autorizacion',
+    required: true,
+  })
   @ApiParam({
     name: 'id',
     description: 'identificador del usuario que desea buscar',
   })
   @Get(':id')
+  @CheckAbilities({ action: Action.Read, subject: Usuario })
   getUsuarioById(@Param('id') id: number) {
     return this.usuarioService.getUsuarioById(id);
   }
@@ -102,7 +106,11 @@ export class UsuarioController {
       throw new BadRequestException(error.message);
     }
   }
-
+  @ApiHeader({
+    name: 'Autorizacion',
+    description: 'Token de autorizacion',
+    required: true,
+  })
   @Delete(':id')
   @CheckAbilities({ action: Action.Delete, subject: Usuario })
   @ApiOkResponse({ description: 'Usuario eliminado', type: UsuarioDto })
@@ -115,8 +123,13 @@ export class UsuarioController {
       throw new NotFoundException(error.message);
     }
   }
-
+  @ApiHeader({
+    name: 'Autorizacion',
+    description: 'Token de autorizacion',
+    required: true,
+  })
   @Patch(':id')
+  @CheckAbilities({ action: Action.Update, subject: Usuario })
   @ApiBody({
     type: UpdateUsuarioDto,
     description: 'Datos del usuario a actualizar',

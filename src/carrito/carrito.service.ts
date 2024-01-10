@@ -78,6 +78,7 @@ export class CarritoService {
   }
   */
   async remove(id: number): Promise<CarritoDto> {
+    // siento que no deberia poder borrarse nunca una venta(voucher?) por ende el carrito no deberia nunca desaparecer en caso de que el comprador quiera ver su historial de compra en algun momento de su vidaxd
     this.logger.debug('buscando carrito para eliminar');
 
     const encontrado: Carrito = await this.carritoRepository.findOne({
@@ -218,6 +219,7 @@ export class CarritoService {
             id,
           },
         });
+
         buscarProducto.stock -= cantidad;
         await this.productoRepository.save(buscarProducto);
       });
