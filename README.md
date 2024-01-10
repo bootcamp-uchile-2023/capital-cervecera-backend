@@ -91,7 +91,7 @@ yarn start:dev
 
 - [ ] Terminar servicios en algunos endpoints
 - [ ] Agregar validador de RUT a TODAS las rutas que lo REQUIERAN
-- [ ] Solucionar PATCH  de productos
+
 ## License
 
 Nest is [MIT licensed](LICENSE).
