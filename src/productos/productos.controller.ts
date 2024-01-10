@@ -71,15 +71,15 @@ export class ProductosController {
     required: false,
   })
   @ApiQuery({
-    name: 'tipo_de_cerveza',
+    name: 'tipo',
     description: 'Identificador del producto que se desea buscar',
     type: String,
     required: false,
   })
   @ApiQuery({
-    name: 'casa_cervecera',
+    name: 'casa_cervecera_id',
     description: 'Identificador del producto que se desea buscar',
-    type: String,
+    type: Number,
     required: false,
   })
   @ApiQuery({
@@ -161,6 +161,7 @@ export class ProductosController {
     required: true,
   })
   @Delete(':id')
+  @CheckAbilities({ action: Action.Delete, subject: Producto })
   @ApiOkResponse({ description: 'Producto eliminado', type: ProductoDto })
   @ApiNotFoundResponse({ description: 'No se encontró el producto' })
   async remove(@Param('id') id: number): Promise<ProductoDto> {

@@ -163,12 +163,10 @@ export class UsuarioService {
       throw Error();
     }
 
-    if (updateUsuarioDto.password) {
-      encontrado.password = updateUsuarioDto.password;
+    if (updateUsuarioDto.isAdmin) {
+      encontrado.isAdmin = updateUsuarioDto.isAdmin;
     }
-    if (updateUsuarioDto.username) {
-      encontrado.username = updateUsuarioDto.username;
-    }
+
     this.logger.debug('guardando actualizacion en la BD');
 
     const resultado: Usuario = await this.usuarioRepository.save(encontrado);

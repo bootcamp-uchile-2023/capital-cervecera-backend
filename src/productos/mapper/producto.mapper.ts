@@ -19,6 +19,8 @@ export class ProductoMapper {
     dto.grado_alcoholico = entidad.grado_alcoholico;
     dto.amargor_ibu = entidad.amargor_ibu;
     dto.detalle = entidad.detalle;
+    dto.casa_cervecera_id = entidad.casa_cervecera_id;
+    dto.tipo = entidad.tipo;
 
     return dto;
   }
@@ -94,6 +96,10 @@ export class ProductoMapper {
     dto.base64_imagen_card = entidad.base64_imagen_card;
     dto.is_recomendado = entidad.is_recomendado;
     dto.is_promo = entidad.is_promo;
+    dto.grado_alcoholico = entidad.grado_alcoholico;
+    dto.casa_cervecera_id = entidad.casa_cervecera_id;
+    dto.tipo = entidad.tipo;
+    dto.amargor_ibu = entidad.amargor_ibu;
 
     return dto;
   }

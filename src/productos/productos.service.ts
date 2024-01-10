@@ -69,6 +69,10 @@ export class ProductosService {
           b.nombre_producto.localeCompare(a.nombre_producto),
         );
       }
+      filteredProduct = filteredProduct.filter((prod) => {
+        console.log(prod);
+        return prod[item] == query[item];
+      });
     });
 
     return filteredProduct;
