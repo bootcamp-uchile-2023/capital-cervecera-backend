@@ -57,9 +57,6 @@ export class ProductosService {
           }
           return prod.is_promo == true;
         });
-        filteredProduct = filteredProduct.filter((prod) => {
-          return prod[item] == query[item];
-        });
       }
       if (item === 'a-z' && query[item] === 'true') {
         filteredProduct = filteredProduct.sort((a, b) =>
