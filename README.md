@@ -90,7 +90,7 @@ yarn start:dev
 ## ✅ Por hacer...
 
 - [ ] Terminar servicios en algunos endpoints
-- [ ] Agregar validador de RUT
+- [ ] Agregar validador de RUT a TODAS las rutas que lo REQUIERAN
 - [ ] Solucionar PATCH  de productos
 ## License
 
